@@ -1,4 +1,5 @@
 import { Grid, Paper, Container, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 import React from 'react';
 
 const Jumbotron = () => {
@@ -18,30 +19,18 @@ const Jumbotron = () => {
       }}
     >
       <Grid item xs={6}>
-        <Container
-          sx={{
-            color: 'white',
-            marginX: '24px',
-            paddingX: '12px',
-          }}
-        >
-          <Typography>
-            <h1
-              style={{
-                fontSize: '64px',
-                fontWeight: 600,
-                fontFamily: `"Playfair Display", serif`,
-              }}
-            >
+        <Container>
+          <Box mx={2} px={1}>
+            <Typography variant="h1" color="white" mb={2}>
               Najait
-            </h1>
-            <p style={{ padding: '8px 0' }}>
+            </Typography>
+            <Typography color="white">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Temporibus, ratione recusandae id sit corporis iure ullam nam
               exercitationem fuga pariatur quas non consectetur repudiandae
               suscipit similique? Asperiores voluptatum a corporis.
-            </p>
-          </Typography>
+            </Typography>
+          </Box>
         </Container>
       </Grid>
     </Grid>

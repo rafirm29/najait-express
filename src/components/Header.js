@@ -13,6 +13,7 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
+    margin: '0.5em',
   },
 });
 
@@ -26,15 +27,7 @@ const Logo = () => {
         alt="logo"
         className={classes.logo}
       />
-      <Typography
-        sx={{
-          color: '#266679',
-          fontFamily: `"Playfair Display", serif`,
-          fontWeight: 700,
-          fontSize: '1.5em',
-          marginRight: '54px',
-        }}
-      >
+      <Typography color="primary" variant="h5" fontWeight="bold" mr={2} ml={1}>
         Najait
       </Typography>
     </div>
@@ -45,12 +38,13 @@ const Logo = () => {
 const NavItem = ({ text }) => {
   return (
     <Typography
+      mx={2.5}
+      px={2}
+      py={1}
+      fontFamily='"Playfair Display", serif'
+      borderRadius={3}
       sx={{
-        fontFamily: `"Playfair Display", serif`,
-        marginX: '18px',
-        padding: '6px 12px',
         cursor: 'pointer',
-        borderRadius: '8px',
         '&:hover': {
           backgroundColor: '#f0f0f0',
         },
@@ -79,9 +73,9 @@ const Header = () => {
 
         {/* Cart page */}
         <ShoppingCartIcon
+          color="primary"
           sx={{
             marginLeft: 'auto',
-            color: '#266679',
             cursor: 'pointer',
             borderRadius: '64px',
             padding: '8px',
@@ -93,17 +87,11 @@ const Header = () => {
 
         {/* Sign in button */}
         <Button
+          variant="contained"
+          color="primary"
           sx={{
-            margin: '0 18px 0 36px',
+            margin: '0 18px',
             fontWeight: 700,
-            color: 'white',
-            backgroundColor: '#266679',
-            textTransform: 'capitalize',
-            '&:hover': {
-              color: 'white',
-              backgroundColor: '#266679',
-              filter: 'brightness(85%)',
-            },
           }}
         >
           Masuk
