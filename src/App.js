@@ -1,10 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import { Typography, ThemeProvider, createTheme } from '@mui/material';
 import './App.css';
 import Header from './components/Header';
 import Jumbotron from './components/Jumbotron';
+import Footer from './components/Footer';
 
 const THEME = createTheme({
   typography: {
@@ -13,6 +12,9 @@ const THEME = createTheme({
       fontFamily: `"Playfair Display", serif`,
     },
     h5: {
+      fontFamily: `"Playfair Display", serif`,
+    },
+    h6: {
       fontFamily: `"Playfair Display", serif`,
     },
   },
@@ -29,6 +31,10 @@ function App() {
       <Header />
       <Jumbotron />
       <Typography>Test</Typography>
+      <Typography>Test</Typography>
+      <Typography>Test</Typography>
+      <Typography>Test</Typography>
+      <Footer />
     </ThemeProvider>
   );
 }
