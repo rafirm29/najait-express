@@ -1,38 +1,10 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import { Button } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Box } from '@mui/system';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
-const useStyles = makeStyles({
-  logo: {
-    width: '54px',
-    height: '54px',
-  },
-  'logo-container': {
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer',
-    margin: '0.5em',
-  },
-});
-
-// Najait logo
-const Logo = () => {
-  const classes = useStyles();
-  return (
-    <div className={classes['logo-container']}>
-      <img
-        src="./assets/images/logo najait item.png"
-        alt="logo"
-        className={classes.logo}
-      />
-      <Typography color="primary" variant="h5" fontWeight="bold" mr={2} ml={1}>
-        Najait
-      </Typography>
-    </div>
-  );
-};
+import Logo from './Logo';
+import { makeStyles } from '@mui/styles';
 
 // Nav item
 const NavItem = ({ text }) => {
@@ -66,7 +38,9 @@ const Header = () => {
         }}
       >
         {/* Home logo */}
-        <Logo />
+        <Box mr={2} ml={1} sx={{ cursor: 'pointer' }}>
+          <Logo color="black" textColor="primary" />
+        </Box>
 
         {/* Nav item(s) */}
         <NavItem text="Profil Penjait" />
