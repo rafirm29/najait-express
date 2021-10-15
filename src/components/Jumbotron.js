@@ -12,13 +12,9 @@ const Jumbotron = () => {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         height: '100vh',
-        '&::before': {
-          content: '""',
-          background: 'rgba(0,0,0,0.6)',
-        },
       }}
     >
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <Container>
           <Box mx={2} px={2}>
             <Typography variant="h1" color="white" mb={2}>

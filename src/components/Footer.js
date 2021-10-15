@@ -9,9 +9,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 const Footer = () => {
   return (
     <footer>
-      <Box bgcolor="#266679" mt={6} pb={6}>
+      <Box bgcolor="#266679" py={5} mt={2}>
         <Container>
-          <Grid container spacing={5} color="white">
+          <Grid container columnSpacing={5} color="white">
             <Grid item xs={12} sm={4}>
               <Logo color="white" textColor="white" />
               <Box>
