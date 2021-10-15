@@ -1,9 +1,13 @@
 import React from 'react';
 import { Typography, ThemeProvider, createTheme } from '@mui/material';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import Jumbotron from './components/Jumbotron';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import ProfilPenjahit from './pages/ProfilPenjahit';
+import Cart from './pages/Cart';
 
 const THEME = createTheme({
   typography: {
@@ -27,15 +31,19 @@ const THEME = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={THEME}>
-      <Header />
-      <Jumbotron />
-      <Typography>Test</Typography>
-      <Typography>Test</Typography>
-      <Typography>Test</Typography>
-      <Typography>Test</Typography>
-      <Footer />
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={THEME}>
+        <Header />
+        <Jumbotron />
+        <Switch>
+          <Route path="/home" component={Home} />
+          <Route exact path="/profilpenjahit" component={ProfilPenjahit} />
+          <Route exact path="/cart" component={Cart} />
+          <Redirect to="home" />
+        </Switch>
+        <Footer />
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 

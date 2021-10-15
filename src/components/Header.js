@@ -1,10 +1,17 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography } from '@mui/material';
-import { Button } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { Box } from '@mui/system';
+import { NavLink } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Logo from './Logo';
 import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  navlink: {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
+});
 
 // Nav item
 const NavItem = ({ text }) => {
@@ -29,6 +36,7 @@ const NavItem = ({ text }) => {
 };
 
 const Header = () => {
+  const classes = useStyles();
   return (
     <AppBar position="static">
       <Toolbar
@@ -39,25 +47,33 @@ const Header = () => {
       >
         {/* Home logo */}
         <Box mr={2} ml={1} sx={{ cursor: 'pointer' }}>
-          <Logo color="black" textColor="primary" />
+          <NavLink to="/home" className={classes.navlink}>
+            <Logo color="black" textColor="primary" />
+          </NavLink>
         </Box>
 
         {/* Nav item(s) */}
-        <NavItem text="Profil Penjait" />
+
+        <NavLink to="/profilpenjahit" className={classes.navlink}>
+          <NavItem text="Profil Penjait" />
+        </NavLink>
 
         {/* Cart page */}
-        <ShoppingCartIcon
-          color="primary"
-          sx={{
-            marginLeft: 'auto',
-            cursor: 'pointer',
-            borderRadius: '64px',
-            padding: '8px',
-            '&:hover': {
-              backgroundColor: '#f0f0f0',
-            },
-          }}
-        />
+        <Box ml="auto">
+          <NavLink to="/cart" className={classes.navlink}>
+            <ShoppingCartIcon
+              color="primary"
+              sx={{
+                cursor: 'pointer',
+                borderRadius: '64px',
+                padding: '8px',
+                '&:hover': {
+                  backgroundColor: '#f0f0f0',
+                },
+              }}
+            />
+          </NavLink>
+        </Box>
 
         {/* Sign in button */}
         <Button
