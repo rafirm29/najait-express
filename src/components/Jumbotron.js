@@ -20,11 +20,11 @@ const Jumbotron = () => {
     >
       <Grid item xs={6}>
         <Container>
-          <Box mx={2} px={1}>
+          <Box mx={2} px={2}>
             <Typography variant="h1" color="white" mb={2}>
               Najait
             </Typography>
-            <Typography color="white">
+            <Typography color="white" pl={0.5}>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Temporibus, ratione recusandae id sit corporis iure ullam nam
               exercitationem fuga pariatur quas non consectetur repudiandae
