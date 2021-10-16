@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, ThemeProvider, createTheme } from '@mui/material';
+import { Typography, ThemeProvider, createTheme, Box } from '@mui/material';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
@@ -41,14 +41,22 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={THEME}>
-        <Header />
-        <Switch>
-          <Route path="/home" component={Home} />
-          <Route exact path="/profilpenjahit" component={ProfilPenjahit} />
-          <Route exact path="/cart" component={Cart} />
-          <Redirect to="home" />
-        </Switch>
-        <Footer />
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '100vh',
+          }}
+        >
+          <Header />
+          <Switch>
+            <Route path="/home" component={Home} />
+            <Route exact path="/profilpenjahit" component={ProfilPenjahit} />
+            <Route exact path="/cart" component={Cart} />
+            <Redirect to="home" />
+          </Switch>
+          <Footer />
+        </Box>
       </ThemeProvider>
     </BrowserRouter>
   );
