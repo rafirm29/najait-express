@@ -1,4 +1,4 @@
-import { Grid, Paper, Container, Typography } from '@mui/material';
+import { Grid, Paper, Container, Typography, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 
@@ -26,6 +26,17 @@ const Jumbotron = () => {
               exercitationem fuga pariatur quas non consectetur repudiandae
               suscipit similique? Asperiores voluptatum a corporis.
             </Typography>
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{
+                marginTop: '18px',
+                fontWeight: 700,
+                color: 'white',
+              }}
+            >
+              Order Sekarang
+            </Button>
           </Box>
         </Container>
       </Grid>
