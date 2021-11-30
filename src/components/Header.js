@@ -57,6 +57,9 @@ const Header = () => {
         <NavLink to="/profilpenjahit" className={classes.navlink}>
           <NavItem text="Profil Penjait" />
         </NavLink>
+        <NavLink to="/ordersaya" className={classes.navlink}>
+          <NavItem text="Order Saya" />
+        </NavLink>
 
         {/* Cart page */}
         <Box ml="auto">

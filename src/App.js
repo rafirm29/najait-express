@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import ProfilPenjahit from './pages/ProfilPenjahit';
 import Cart from './pages/Cart';
+import OrderSaya from './pages/OrderSaya';
 
 const THEME = createTheme({
   typography: {
@@ -53,6 +54,7 @@ function App() {
             <Route path="/home" component={Home} />
             <Route exact path="/profilpenjahit" component={ProfilPenjahit} />
             <Route exact path="/cart" component={Cart} />
+            <Route exact path="/ordersaya" component={OrderSaya} />
             <Redirect to="home" />
           </Switch>
           <Footer />
