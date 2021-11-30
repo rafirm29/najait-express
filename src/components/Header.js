@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 const NavItem = ({ text }) => {
   return (
     <Typography
-      mx={2.5}
+      mx={1.5}
       px={2}
       py={1}
       fontFamily='"Playfair Display", serif'
@@ -54,6 +54,9 @@ const Header = () => {
 
         {/* Nav item(s) */}
 
+        <NavLink to="/aboutus" className={classes.navlink}>
+          <NavItem text="About Us" />
+        </NavLink>
         <NavLink to="/profilpenjahit" className={classes.navlink}>
           <NavItem text="Profil Penjait" />
         </NavLink>

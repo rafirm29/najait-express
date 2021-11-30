@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import ProfilPenjahit from './pages/ProfilPenjahit';
 import Cart from './pages/Cart';
 import OrderSaya from './pages/OrderSaya';
+import AboutUs from './pages/AboutUs';
 
 const THEME = createTheme({
   typography: {
@@ -38,27 +39,37 @@ const THEME = createTheme({
   },
 });
 
+const Main = () => {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+    >
+      <Header />
+      <Switch>
+        <Route path="/home" component={Home} />
+        <Route exact path="/profilpenjahit" component={ProfilPenjahit} />
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/ordersaya" component={OrderSaya} />
+        <Redirect to="home" />
+      </Switch>
+      <Footer />
+    </Box>
+  );
+};
+
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={THEME}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            minHeight: '100vh',
-          }}
-        >
-          <Header />
-          <Switch>
-            <Route path="/home" component={Home} />
-            <Route exact path="/profilpenjahit" component={ProfilPenjahit} />
-            <Route exact path="/cart" component={Cart} />
-            <Route exact path="/ordersaya" component={OrderSaya} />
-            <Redirect to="home" />
-          </Switch>
-          <Footer />
-        </Box>
+        <Switch>
+          <Route path="/aboutus" component={AboutUs} />
+          <Route path="/" component={Main} />
+          <Redirect to="/" />
+        </Switch>
       </ThemeProvider>
     </BrowserRouter>
   );
