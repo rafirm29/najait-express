@@ -9,7 +9,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 const Footer = () => {
   return (
     <Box component="footer" sx={{ mt: 'auto' }}>
-      <Box bgcolor="#266679" py={5} mt={2}>
+      <Box bgcolor="#266679" py={5}>
         <Container>
           <Grid container columnSpacing={5} color="white">
             <Grid item xs={12} sm={4}>
