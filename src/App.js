@@ -9,6 +9,8 @@ import ProfilPenjahit from './pages/ProfilPenjahit';
 import Cart from './pages/Cart';
 import OrderSaya from './pages/OrderSaya';
 import AboutUs from './pages/AboutUs';
+import LogIn from './pages/LogIn';
+import SignUp from './pages/SignUp';
 
 const THEME = createTheme({
   typography: {
@@ -67,6 +69,8 @@ function App() {
       <ThemeProvider theme={THEME}>
         <Switch>
           <Route path="/aboutus" component={AboutUs} />
+          <Route exact path="/login" component={LogIn} />
+          <Route exact path="/signup" component={SignUp} />
           <Route path="/" component={Main} />
           <Redirect to="/" />
         </Switch>
