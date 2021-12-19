@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -9,9 +9,12 @@ import {
   Avatar,
   Button,
   TextField,
+  Rating,
 } from "@mui/material";
 
 function FeedbackForm() {
+  const [rating, setRating] = useState(4);
+
   return (
     <Box
       my={2}
@@ -48,9 +51,23 @@ function FeedbackForm() {
           <Typography variant="h7" fontFamily="Montserrat" my={2}>
             Berapakah tingkat kepuasan anda menggunakan website ini?
           </Typography>
-          <Typography variant="h6" fontFamily="Montserrat" my={2}>
-            ★★★★☆
-          </Typography>
+          <Box
+            my={2}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Rating
+              name="rating"
+              value={rating}
+              sx={{ color: "#266679" }}
+              onChange={(event, newValue) => {
+                setRating(newValue);
+              }}
+            />
+          </Box>
           <Typography variant="h7" fontFamily="Montserrat" my={1}>
             Berikan komentar, kritik, dan saran anda terhadap website ini
           </Typography>
