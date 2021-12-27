@@ -42,7 +42,7 @@ const Penjahit = () => {
               </Typography>
             </CardContent>
           </Grid>
-          <Grid item xs alignSelf="center">
+          <Grid item xs alignSelf="center" mx={1.5}>
             <Box display="flex" alignItems="center" my={1}>
               <LocationOnIcon color="secondary" />
               <Typography variant="subtitle2" ml={1}>
