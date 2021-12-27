@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Container,
   Typography,
@@ -8,9 +8,9 @@ import {
   Avatar,
   Card,
   CardContent,
-} from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+} from "@mui/material";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 
 const Penjahit = () => {
   return (
@@ -20,7 +20,7 @@ const Penjahit = () => {
           <Grid item justifySelf="center">
             <Avatar sx={{ height: 96, width: 96, my: 3, ml: 1.5 }}>P</Avatar>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={12} md={10} lg={8}>
             <CardContent>
               <Typography
                 gutterBottom
@@ -30,7 +30,7 @@ const Penjahit = () => {
               >
                 Lorem Ipsum
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" align="justify">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Mollitia atque maiores perferendis eligendi vel sit iste,
                 dolorem, natus placeat exercitationem impedit nam at corrupti
