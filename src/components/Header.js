@@ -1,15 +1,15 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import { Box } from '@mui/system';
-import { NavLink } from 'react-router-dom';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Logo from './Logo';
-import { makeStyles } from '@mui/styles';
+import React from "react";
+import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { Box } from "@mui/system";
+import { NavLink } from "react-router-dom";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Logo from "./Logo";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   navlink: {
-    textDecoration: 'none',
-    color: 'inherit',
+    textDecoration: "none",
+    color: "inherit",
   },
 });
 
@@ -17,18 +17,19 @@ const useStyles = makeStyles({
 const NavItem = ({ text }) => {
   return (
     <Typography
-      mx={1.5}
-      px={2}
-      py={1}
       fontFamily='"Playfair Display", serif'
       borderRadius={3}
       sx={{
-        cursor: 'pointer',
-        '&:hover': {
-          backgroundColor: '#f0f0f0',
+        cursor: "pointer",
+        "&:hover": {
+          backgroundColor: "#f0f0f0",
         },
+        mx: { xs: 0.5, md: 1.5 },
+        px: { xs: 0.5, md: 2 },
+        py: { xs: 0.5, md: 1 },
+        fontSize: { xs: "14px" },
       }}
-      onClick={() => console.log(text, ' clicked')}
+      onClick={() => console.log(text, " clicked")}
     >
       {text}
     </Typography>
@@ -41,12 +42,16 @@ const Header = () => {
     <AppBar position="static">
       <Toolbar
         sx={{
-          color: 'black',
-          backgroundColor: 'white',
+          color: "black",
+          backgroundColor: "white",
         }}
       >
         {/* Home logo */}
-        <Box mr={2} ml={1} sx={{ cursor: 'pointer' }}>
+        <Box
+          mr={2}
+          ml={1}
+          sx={{ cursor: "pointer", display: { xs: "none", md: "block" } }}
+        >
           <NavLink to="/home" className={classes.navlink}>
             <Logo color="black" textColor="primary" />
           </NavLink>
@@ -70,11 +75,11 @@ const Header = () => {
             <ShoppingCartIcon
               color="primary"
               sx={{
-                cursor: 'pointer',
-                borderRadius: '64px',
-                padding: '8px',
-                '&:hover': {
-                  backgroundColor: '#f0f0f0',
+                cursor: "pointer",
+                borderRadius: "64px",
+                padding: { xs: "4px", md: "8px" },
+                "&:hover": {
+                  backgroundColor: "#f0f0f0",
                 },
               }}
             />
@@ -86,8 +91,8 @@ const Header = () => {
           variant="contained"
           color="primary"
           sx={{
-            margin: '0 18px',
-            fontWeight: 700,
+            margin: { xs: "0 12px", md: "0 18px" },
+            fontWeight: { xs: 500, md: 700 },
           }}
         >
           Masuk
