@@ -15,6 +15,10 @@ const SignUp = () => {
     console.log({
       email: data.get("email"),
       password: data.get("password"),
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      address: data.get("address"),
+      phone: data.get("phone"),
     });
   };
 
