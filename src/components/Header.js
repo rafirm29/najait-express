@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, Drawer } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Drawer,
+  Popover,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import { NavLink, Link } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -49,7 +56,17 @@ const Header = () => {
     right: false,
   });
   const [user, setUser] = useState(null);
-  let a = 'a';
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClickPopover = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClosePopover = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   useEffect(async () => {
     try {
@@ -165,6 +182,7 @@ const Header = () => {
             margin: { xs: '0 12px', md: '0 18px' },
             fontWeight: { xs: 500, md: 700 },
           }}
+          onClick={user ? handleClickPopover : () => {}}
         >
           {user || (
             <Link
@@ -175,6 +193,34 @@ const Header = () => {
             </Link>
           )}
         </Button>
+        <Popover
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClosePopover}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+        >
+          <Typography p={1.5} color="primary" fontWeight="bold">
+            <Link
+              to="/editprofile"
+              style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                ':hover': {
+                  textDecoration: 'underline',
+                },
+              }}
+            >
+              Edit profil
+            </Link>
+          </Typography>
+        </Popover>
       </Toolbar>
     </AppBar>
   );
