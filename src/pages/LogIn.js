@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -7,8 +7,11 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+import { LoadingButton } from '@mui/lab';
 import axios from 'axios';
 import CONFIG from '../config';
+import { useHistory } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -19,8 +22,8 @@ function Copyright(props) {
       {...props}
     >
       {'Copyright © '}
-      <MuiLink color="inherit" href="#">
-        Your Website
+      <MuiLink color="inherit" href="/home">
+        Najait
       </MuiLink>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -29,6 +32,10 @@ function Copyright(props) {
 }
 
 const LogIn = () => {
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState(null);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,6 +44,8 @@ const LogIn = () => {
       password: data.get('password'),
     };
     console.log(payload);
+    setLoading(true);
+    setFeedback(null);
     try {
       const response = await axios.post(
         `${CONFIG.API_URL}/user/login`,
@@ -45,9 +54,22 @@ const LogIn = () => {
       const { data } = response;
       console.log(data);
       localStorage.setItem('token', data.accessToken);
+      setFeedback({
+        type: 'success',
+        msg: 'Success',
+      });
+      setTimeout(() => {
+        history.push('/home');
+      }, 1500);
     } catch (err) {
       console.log('Error: Failed to log in');
       console.log(err);
+      setFeedback({
+        type: 'error',
+        msg: 'Invalid username or password. Please try again',
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,9 +102,17 @@ const LogIn = () => {
             src="./assets/images/logo-black.png"
             sx={{ m: 1 }}
           />
-          <Typography component="h1" variant="h5" fontFamily="Montserrat">
+          <Typography
+            component="h1"
+            variant="h5"
+            fontFamily="Montserrat"
+            gutterBottom
+          >
             Sign in
           </Typography>
+          {feedback ? (
+            <Alert severity={feedback.type}>{feedback.msg}</Alert>
+          ) : null}
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -104,14 +134,15 @@ const LogIn = () => {
               id="password"
               autoComplete="current-password"
             />
-            <Button
+            <LoadingButton
+              loading={loading}
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
-            </Button>
+            </LoadingButton>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <MuiLink href="/signup" variant="body2">
