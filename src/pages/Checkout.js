@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Box, Button, Card, Grid, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { DateTimePicker } from "@mui/lab";
@@ -11,7 +19,10 @@ function Checkout() {
   };
 
   return (
-    <>
+    <Container>
+      <Typography variant="h4" my={3}>
+        Checkout
+      </Typography>
       <Box sx={{ width: "100vw" }}>
         <Grid
           container
@@ -33,7 +44,7 @@ function Checkout() {
             <Card>
               <Box px={2} py={4}>
                 <Box mb={4}>
-                  <h2>Checkout</h2>
+                  <Typography variant="h6">Formulir Pemesanan</Typography>
                 </Box>
                 <Box
                   sx={{
@@ -106,7 +117,7 @@ function Checkout() {
           </Grid>
         </Grid>
       </Box>
-    </>
+    </Container>
   );
 }
 
