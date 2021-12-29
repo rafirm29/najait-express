@@ -7,6 +7,8 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import axios from 'axios';
+import CONFIG from '../config';
 
 function Copyright(props) {
   return (
@@ -27,14 +29,26 @@ function Copyright(props) {
 }
 
 const LogIn = () => {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
+    const payload = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+    console.log(payload);
+    try {
+      const response = await axios.post(
+        `${CONFIG.API_URL}/user/login`,
+        payload
+      );
+      const { data } = response;
+      console.log(data);
+      localStorage.setItem('token', data.accessToken);
+    } catch (err) {
+      console.log('Error: Failed to log in');
+      console.log(err);
+    }
   };
 
   return (

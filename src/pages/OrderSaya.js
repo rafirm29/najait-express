@@ -1,11 +1,29 @@
 import { Container, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import DaftarPenjahit from '../components/odersaya/DaftarPenjahit';
 import PesananSaya from '../components/odersaya/PesananSaya';
+import jwt from 'jsonwebtoken';
 
 const available = true; // Dummy
 
 const MyOrderContent = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      history.replace('/login');
+    } else {
+      const user = jwt.decode(token);
+      if (!user) {
+        localStorage.removeItem('token');
+        history.replace('/login');
+      } else {
+        console.log(user);
+      }
+    }
+  }, []);
   return (
     <>
       <Typography variant="h4" my={3}>

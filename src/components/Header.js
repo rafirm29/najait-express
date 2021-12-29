@@ -1,16 +1,19 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, Button, Drawer } from "@mui/material";
-import { Box } from "@mui/system";
-import { NavLink } from "react-router-dom";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import MenuIcon from "@mui/icons-material/Menu";
-import Logo from "./Logo";
-import { makeStyles } from "@mui/styles";
+import React, { useEffect, useState } from 'react';
+import { AppBar, Toolbar, Typography, Button, Drawer } from '@mui/material';
+import { Box } from '@mui/system';
+import { NavLink, Link } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import MenuIcon from '@mui/icons-material/Menu';
+import Logo from './Logo';
+import { makeStyles } from '@mui/styles';
+import axios from 'axios';
+import CONFIG from '../config';
+import jwt from 'jsonwebtoken';
 
 const useStyles = makeStyles({
   navlink: {
-    textDecoration: "none",
-    color: "inherit",
+    textDecoration: 'none',
+    color: 'inherit',
   },
 });
 
@@ -21,16 +24,15 @@ const NavItem = ({ text }) => {
       fontFamily='"Playfair Display", serif'
       borderRadius={3}
       sx={{
-        cursor: "pointer",
-        "&:hover": {
-          backgroundColor: "#f0f0f0",
+        cursor: 'pointer',
+        '&:hover': {
+          backgroundColor: '#f0f0f0',
         },
         mx: { xs: 0.5, md: 1.5 },
         px: { xs: 0.5, md: 2 },
         py: { xs: 1 },
-        fontSize: { xs: "16px" },
+        fontSize: { xs: '16px' },
       }}
-      onClick={() => console.log(text, " clicked")}
     >
       {text}
     </Typography>
@@ -46,11 +48,30 @@ const Header = () => {
     bottom: false,
     right: false,
   });
+  const [user, setUser] = useState(null);
+  let a = 'a';
+
+  useEffect(async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const response = await axios.get(`${CONFIG.API_URL}/user/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response) {
+          const { data } = response;
+          setUser(data.first_name);
+        }
+      }
+    } catch (err) {}
+  }, []);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
     ) {
       return;
     }
@@ -61,21 +82,21 @@ const Header = () => {
     <AppBar position="static">
       <Toolbar
         sx={{
-          color: "black",
-          backgroundColor: "white",
+          color: 'black',
+          backgroundColor: 'white',
         }}
       >
-        <Box sx={{ display: { xs: "block", md: "none" } }}>
-          <Button onClick={toggleDrawer("left", true)}>
+        <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+          <Button onClick={toggleDrawer('left', true)}>
             <MenuIcon />
           </Button>
           <Drawer
             anchor="left"
-            open={state["left"]}
-            onClose={toggleDrawer("left", false)}
+            open={state['left']}
+            onClose={toggleDrawer('left', false)}
           >
             <Box sx={{ px: { xs: 3, md: 5 } }}>
-              <Box mr={2} ml={1} my={2} sx={{ cursor: "pointer" }}>
+              <Box mr={2} ml={1} my={2} sx={{ cursor: 'pointer' }}>
                 <NavLink to="/home" className={classes.navlink}>
                   <Logo color="black" textColor="primary" />
                 </NavLink>
@@ -99,7 +120,7 @@ const Header = () => {
         <Box
           mr={2}
           ml={1}
-          sx={{ cursor: "pointer", display: { xs: "none", md: "block" } }}
+          sx={{ cursor: 'pointer', display: { xs: 'none', md: 'block' } }}
         >
           <NavLink to="/home" className={classes.navlink}>
             <Logo color="black" textColor="primary" />
@@ -107,7 +128,7 @@ const Header = () => {
         </Box>
 
         {/* Nav item(s) */}
-        <Box display="flex" sx={{ display: { xs: "none", md: "flex" } }}>
+        <Box display="flex" sx={{ display: { xs: 'none', md: 'flex' } }}>
           <NavLink to="/aboutus" className={classes.navlink}>
             <NavItem text="About Us" />
           </NavLink>
@@ -125,11 +146,11 @@ const Header = () => {
             <ShoppingCartIcon
               color="primary"
               sx={{
-                cursor: "pointer",
-                borderRadius: "64px",
-                padding: { xs: "4px", md: "8px" },
-                "&:hover": {
-                  backgroundColor: "#f0f0f0",
+                cursor: 'pointer',
+                borderRadius: '64px',
+                padding: { xs: '4px', md: '8px' },
+                '&:hover': {
+                  backgroundColor: '#f0f0f0',
                 },
               }}
             />
@@ -141,11 +162,18 @@ const Header = () => {
           variant="contained"
           color="primary"
           sx={{
-            margin: { xs: "0 12px", md: "0 18px" },
+            margin: { xs: '0 12px', md: '0 18px' },
             fontWeight: { xs: 500, md: 700 },
           }}
         >
-          Masuk
+          {user || (
+            <Link
+              to="/login"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              Masuk
+            </Link>
+          )}
         </Button>
       </Toolbar>
     </AppBar>

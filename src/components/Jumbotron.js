@@ -1,6 +1,7 @@
 import { Grid, Paper, Container, Typography, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Jumbotron = () => {
   return (
@@ -35,7 +36,12 @@ const Jumbotron = () => {
                 color: 'white',
               }}
             >
-              Order Sekarang
+              <Link
+                to="/checkout"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                Order Sekarang
+              </Link>
             </Button>
           </Box>
         </Container>
