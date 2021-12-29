@@ -13,6 +13,7 @@ import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
 import Feedback from "./pages/Feedback";
 import EditProfile from "./pages/EditProfile";
+import Checkout from "./pages/Checkout";
 
 const THEME = createTheme({
   typography: {
@@ -57,6 +58,7 @@ const Main = () => {
         <Route path="/home" component={Home} />
         <Route exact path="/profilpenjahit" component={ProfilPenjahit} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/ordersaya" component={OrderSaya} />
         <Route exact path="/feedback" component={Feedback} />
         <Route exact path="/editprofile" component={EditProfile} />
