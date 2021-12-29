@@ -35,15 +35,19 @@ function ReviewOrder() {
           sx={{ flex: 0.49 }}
           id="jenis"
           name="jenis"
-          label="Jenis"
-          variant="outlined"
+          label="Jenis Reparasi"
+          variant="standard"
+          value="Potong celana"
+          inputProps={{ readOnly: true }}
         />
         <TextField
           sx={{ flex: 0.49 }}
           id="pakaian"
           name="pakaian"
           label="Pakaian"
-          variant="outlined"
+          variant="standard"
+          value="Celana panjang"
+          inputProps={{ readOnly: true }}
         />
       </Box>
       <Box>
@@ -54,7 +58,9 @@ function ReviewOrder() {
           id="catatan"
           name="catatan"
           label="Catatan"
-          variant="outlined"
+          variant="standard"
+          value="Potong 2cm bagian bawah"
+          inputProps={{ readOnly: true }}
         />
       </Box>
       <Box
@@ -65,26 +71,16 @@ function ReviewOrder() {
           my: 2,
         }}
       >
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateTimePicker
-            id="waktu_pesan"
-            name="waktu_pesan"
-            label="Waktu Pesan"
-            value={waktu_pesan}
-            onChange={handleWaktu_pesan}
-            renderInput={(params) => <TextField {...params} fullWidth />}
-            minDateTime={new Date()}
-          />
-        </LocalizationProvider>
+        <TextField
+          fullWidth
+          id="waktu_pesan"
+          name="waktu_pesan"
+          label="Waktu Pesan"
+          value={waktu_pesan.toDateString()}
+          variant="standard"
+          inputProps={{ readOnly: true }}
+        />
       </Box>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      ></Box>
     </Box>
   );
 }

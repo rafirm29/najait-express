@@ -46,69 +46,58 @@ function Checkout() {
       <Typography variant="h4" my={3}>
         Checkout
       </Typography>
-      <Box>
+      <Grid container alignItems="center" justifyContent="center">
         <Grid
-          container
-          p={2}
-          columnSpacing={2}
-          alignItems="center"
-          justifyContent="center"
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <Grid
-            item
-            xs={8}
-            md={10}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Card>
-              <Box px={4} py={4}>
-                <Box px={4}>
-                  <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-                    {steps.map((label) => (
-                      <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
-                      </Step>
-                    ))}
-                  </Stepper>
-                </Box>
-                {activeStep === steps.length ? (
-                  <>
-                    <Container maxWidth="xs">
-                      <Typography variant="h6" gutterBottom>
-                        Thank you for your order.
-                      </Typography>
-                      <Typography variant="subtitle2">
-                        Your order number is #2001539. We have emailed your
-                        order confirmation, and will send you an update when
-                        your order has shipped.
-                      </Typography>
-                    </Container>
-                  </>
-                ) : (
-                  <>
-                    {getStepContent(activeStep)}
-                    <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                      {activeStep !== 0 && (
-                        <Button onClick={handleBack}>Back</Button>
-                      )}
-
-                      <Button variant="contained" onClick={handleNext}>
-                        {activeStep === steps.length - 1
-                          ? "Place order"
-                          : "Next"}
-                      </Button>
-                    </Box>
-                  </>
-                )}
+          <Card>
+            <Box sx={{ px: { xs: 2, md: 4 } }} py={4}>
+              <Box>
+                <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+                  {steps.map((label) => (
+                    <Step key={label}>
+                      <StepLabel>{label}</StepLabel>
+                    </Step>
+                  ))}
+                </Stepper>
               </Box>
-            </Card>
-          </Grid>
+              {activeStep === steps.length ? (
+                <>
+                  <Container maxWidth="xs">
+                    <Typography variant="h6" gutterBottom>
+                      Thank you for your order.
+                    </Typography>
+                    <Typography variant="subtitle2">
+                      Your order number is #2001539. We have emailed your order
+                      confirmation, and will send you an update when your order
+                      has shipped.
+                    </Typography>
+                  </Container>
+                </>
+              ) : (
+                <>
+                  {getStepContent(activeStep)}
+                  <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                    {activeStep !== 0 && (
+                      <Button onClick={handleBack}>Back</Button>
+                    )}
+
+                    <Button variant="contained" onClick={handleNext}>
+                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    </Button>
+                  </Box>
+                </>
+              )}
+            </Box>
+          </Card>
         </Grid>
-      </Box>
+      </Grid>
     </Container>
   );
 }
