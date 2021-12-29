@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -8,16 +8,15 @@ import {
   Step,
   StepLabel,
   Stepper,
-  TextField,
   Typography,
-} from "@mui/material";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import { DateTimePicker } from "@mui/lab";
-import CheckoutForm from "../components/checkout/CheckoutForm";
-import ReviewOrder from "../components/checkout/ReviewOrder";
+} from '@mui/material';
+import CheckoutForm from '../components/checkout/CheckoutForm';
+import ReviewOrder from '../components/checkout/ReviewOrder';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import CONFIG from '../config';
 
-const steps = ["Formulir Pemesanan", "Review Pemesanan"];
+const steps = ['Formulir Pemesanan', 'Review Pemesanan'];
 
 function getStepContent(step) {
   switch (step) {
@@ -26,12 +25,13 @@ function getStepContent(step) {
     case 1:
       return <ReviewOrder />;
     default:
-      throw new Error("Unknown step");
+      throw new Error('Unknown step');
   }
 }
 
 function Checkout() {
   const [activeStep, setActiveStep] = useState(0);
+  const history = useHistory();
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -40,6 +40,29 @@ function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  useEffect(async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const response = await axios.get(`${CONFIG.API_URL}/user/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response) {
+          const { data } = response;
+          console.log(data);
+        } else {
+          history.replace('/login');
+        }
+      } else {
+        history.replace('/login');
+      }
+    } catch (err) {
+      history.replace('/login');
+    }
+  }, []);
 
   return (
     <Container>
@@ -51,9 +74,9 @@ function Checkout() {
           item
           xs={12}
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <Card>
@@ -83,13 +106,13 @@ function Checkout() {
               ) : (
                 <>
                   {getStepContent(activeStep)}
-                  <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     {activeStep !== 0 && (
                       <Button onClick={handleBack}>Back</Button>
                     )}
 
                     <Button variant="contained" onClick={handleNext}>
-                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                      {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                     </Button>
                   </Box>
                 </>
