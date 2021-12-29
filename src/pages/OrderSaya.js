@@ -4,24 +4,17 @@ import { useHistory } from 'react-router-dom';
 import DaftarPenjahit from '../components/odersaya/DaftarPenjahit';
 import PesananSaya from '../components/odersaya/PesananSaya';
 import jwt from 'jsonwebtoken';
+import { useAuth } from '../context/auth';
 
 const available = true; // Dummy
 
 const MyOrderContent = () => {
+  const auth = useAuth();
   const history = useHistory();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
+    if (!auth.isAuthenticated()) {
       history.replace('/login');
-    } else {
-      const user = jwt.decode(token);
-      if (!user) {
-        localStorage.removeItem('token');
-        history.replace('/login');
-      } else {
-        console.log(user);
-      }
     }
   }, []);
   return (

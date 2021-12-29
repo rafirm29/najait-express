@@ -15,6 +15,7 @@ import ReviewOrder from '../components/checkout/ReviewOrder';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import CONFIG from '../config';
+import { useAuth } from '../context/auth';
 
 const steps = ['Formulir Pemesanan', 'Review Pemesanan'];
 
@@ -30,8 +31,9 @@ function getStepContent(step) {
 }
 
 function Checkout() {
-  const [activeStep, setActiveStep] = useState(0);
+  const auth = useAuth();
   const history = useHistory();
+  const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -42,24 +44,7 @@ function Checkout() {
   };
 
   useEffect(async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (token) {
-        const response = await axios.get(`${CONFIG.API_URL}/user/profile`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response) {
-          const { data } = response;
-          console.log(data);
-        } else {
-          history.replace('/login');
-        }
-      } else {
-        history.replace('/login');
-      }
-    } catch (err) {
+    if (!auth.isAuthenticated()) {
       history.replace('/login');
     }
   }, []);

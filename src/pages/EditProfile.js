@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import CONFIG from '../config';
+import { useAuth } from '../context/auth';
 
 const EditProfileContent = () => {
   return (
@@ -18,27 +19,11 @@ const EditProfileContent = () => {
 };
 
 const EditProfile = () => {
+  const auth = useAuth();
   const history = useHistory();
 
   useEffect(async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (token) {
-        const response = await axios.get(`${CONFIG.API_URL}/user/profile`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response) {
-          const { data } = response;
-          console.log(data);
-        } else {
-          history.replace('/login');
-        }
-      } else {
-        history.replace('/login');
-      }
-    } catch (err) {
+    if (!auth.isAuthenticated) {
       history.replace('/login');
     }
   }, []);

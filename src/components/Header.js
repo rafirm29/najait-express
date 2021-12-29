@@ -9,13 +9,10 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { NavLink, Link } from 'react-router-dom';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuIcon from '@mui/icons-material/Menu';
 import Logo from './Logo';
 import { makeStyles } from '@mui/styles';
-import axios from 'axios';
-import CONFIG from '../config';
-import jwt from 'jsonwebtoken';
+import { useAuth } from '../context/auth';
 
 const useStyles = makeStyles({
   navlink: {
@@ -48,6 +45,7 @@ const NavItem = ({ text }) => {
 
 const Header = () => {
   const classes = useStyles();
+  const auth = useAuth();
 
   const [state, setState] = React.useState({
     top: false,
@@ -68,21 +66,11 @@ const Header = () => {
 
   const open = Boolean(anchorEl);
 
-  useEffect(async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (token) {
-        const response = await axios.get(`${CONFIG.API_URL}/user/profile`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response) {
-          const { data } = response;
-          setUser(data.first_name);
-        }
-      }
-    } catch (err) {}
+  useEffect(() => {
+    if (auth.isAuthenticated()) {
+      const user = auth.getUser().first_name || null;
+      setUser(user);
+    }
   }, []);
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -157,70 +145,55 @@ const Header = () => {
           </NavLink>
         </Box>
 
-        {/* Cart page */}
-        <Box ml="auto">
-          <NavLink to="/cart" className={classes.navlink}>
-            <ShoppingCartIcon
-              color="primary"
-              sx={{
-                cursor: 'pointer',
-                borderRadius: '64px',
-                padding: { xs: '4px', md: '8px' },
-                '&:hover': {
-                  backgroundColor: '#f0f0f0',
-                },
-              }}
-            />
-          </NavLink>
-        </Box>
-
         {/* Sign in button */}
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{
-            margin: { xs: '0 12px', md: '0 18px' },
-            fontWeight: { xs: 500, md: 700 },
-          }}
-          onClick={user ? handleClickPopover : () => {}}
-        >
-          {user || (
-            <Link
-              to="/login"
-              style={{ textDecoration: 'none', color: 'inherit' }}
-            >
-              Masuk
-            </Link>
-          )}
-        </Button>
-        <Popover
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClosePopover}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-        >
-          <Typography p={1.5} color="primary" fontWeight="bold">
-            <Link
-              to="/editprofile"
-              style={{
-                textDecoration: 'none',
-                color: 'inherit',
-                ':hover': {
-                  textDecoration: 'underline',
-                },
-              }}
-            >
-              Edit profil
-            </Link>
-          </Typography>
-        </Popover>
+        <Box ml="auto">
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              margin: { xs: '0 12px', md: '0 18px' },
+              fontWeight: { xs: 500, md: 700 },
+            }}
+            onClick={user ? handleClickPopover : () => {}}
+          >
+            {user || (
+              <Link
+                to="/login"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                Masuk
+              </Link>
+            )}
+          </Button>
+          <Popover
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClosePopover}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          >
+            <Typography p={1.5} color="primary" fontWeight="bold">
+              <Link
+                to="/editprofile"
+                style={{
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  ':hover': {
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
+                Edit profil
+              </Link>
+            </Typography>
+          </Popover>
+        </Box>
       </Toolbar>
     </AppBar>
   );

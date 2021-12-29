@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -12,6 +12,7 @@ import { LoadingButton } from '@mui/lab';
 import axios from 'axios';
 import CONFIG from '../config';
 import { useHistory } from 'react-router-dom';
+import { useAuth } from '../context/auth';
 
 function Copyright(props) {
   return (
@@ -32,9 +33,16 @@ function Copyright(props) {
 }
 
 const LogIn = () => {
+  const auth = useAuth();
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState(null);
+
+  useEffect(() => {
+    if (auth.isAuthenticated()) {
+      history.replace('/home');
+    }
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -59,7 +67,7 @@ const LogIn = () => {
         msg: 'Success',
       });
       setTimeout(() => {
-        history.push('/home');
+        window.location.href = '/home';
       }, 1500);
     } catch (err) {
       console.log('Error: Failed to log in');

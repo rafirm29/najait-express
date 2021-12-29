@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -10,9 +10,19 @@ import Typography from '@mui/material/Typography';
 import { LoadingButton } from '@mui/lab';
 import axios from 'axios';
 import CONFIG from '../config';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../context/auth';
 
 const SignUp = () => {
+  const auth = useAuth();
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (auth.isAuthenticated()) {
+      history.replace('/home');
+    }
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
