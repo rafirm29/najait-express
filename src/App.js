@@ -58,7 +58,6 @@ const Main = () => {
         <Route path="/home" component={Home} />
         <Route exact path="/profilpenjahit" component={ProfilPenjahit} />
         <Route exact path="/cart" component={Cart} />
-        <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/ordersaya" component={OrderSaya} />
         <Route exact path="/feedback" component={Feedback} />
         <Route exact path="/editprofile" component={EditProfile} />
@@ -77,6 +76,7 @@ function App() {
           <Route path="/aboutus" component={AboutUs} />
           <Route exact path="/login" component={LogIn} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route path="/" component={Main} />
           <Redirect to="/" />
         </Switch>

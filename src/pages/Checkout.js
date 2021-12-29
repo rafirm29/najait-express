@@ -5,17 +5,40 @@ import {
   Card,
   Container,
   Grid,
+  Step,
+  StepLabel,
+  Stepper,
   TextField,
   Typography,
 } from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { DateTimePicker } from "@mui/lab";
+import CheckoutForm from "../components/checkout/CheckoutForm";
+import ReviewOrder from "../components/checkout/ReviewOrder";
+
+const steps = ["Formulir Pemesanan", "Review Pemesanan"];
+
+function getStepContent(step) {
+  switch (step) {
+    case 0:
+      return <CheckoutForm />;
+    case 1:
+      return <ReviewOrder />;
+    default:
+      throw new Error("Unknown step");
+  }
+}
 
 function Checkout() {
-  const [waktu_pesan, setWaktu_pesan] = useState(new Date());
-  const handleWaktu_pesan = (newValue) => {
-    setWaktu_pesan(newValue);
+  const [activeStep, setActiveStep] = useState(0);
+
+  const handleNext = () => {
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
   };
 
   return (
@@ -23,7 +46,7 @@ function Checkout() {
       <Typography variant="h4" my={3}>
         Checkout
       </Typography>
-      <Box sx={{ width: "100vw" }}>
+      <Box>
         <Grid
           container
           p={2}
@@ -33,8 +56,8 @@ function Checkout() {
         >
           <Grid
             item
-            xs={10}
-            md={12}
+            xs={8}
+            md={10}
             sx={{
               display: "flex",
               alignItems: "center",
@@ -43,74 +66,24 @@ function Checkout() {
           >
             <Card>
               <Box px={2} py={4}>
-                <Box mb={4}>
-                  <Typography variant="h6">Formulir Pemesanan</Typography>
+                <Box px={5}>
+                  <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+                    {steps.map((label) => (
+                      <Step key={label}>
+                        <StepLabel>{label}</StepLabel>
+                      </Step>
+                    ))}
+                  </Stepper>
                 </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    my: 2,
-                  }}
-                >
-                  <TextField
-                    sx={{ flex: 0.49 }}
-                    id="jenis"
-                    name="jenis"
-                    label="Jenis"
-                    variant="outlined"
-                  />
-                  <TextField
-                    sx={{ flex: 0.49 }}
-                    id="pakaian"
-                    name="pakaian"
-                    label="Pakaian"
-                    variant="outlined"
-                  />
-                </Box>
-                <Box>
-                  <TextField
-                    fullWidth
-                    multiline
-                    rows={5}
-                    id="catatan"
-                    name="catatan"
-                    label="Catatan"
-                    variant="outlined"
-                  />
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    my: 2,
-                  }}
-                >
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DateTimePicker
-                      id="waktu_pesan"
-                      name="waktu_pesan"
-                      label="Waktu Pesan"
-                      value={waktu_pesan}
-                      onChange={handleWaktu_pesan}
-                      renderInput={(params) => (
-                        <TextField {...params} fullWidth />
-                      )}
-                      minDateTime={new Date()}
-                    />
-                  </LocalizationProvider>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button variant="contained">Pesan</Button>
+                {getStepContent(activeStep)}
+                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                  {activeStep !== 0 && (
+                    <Button onClick={handleBack}>Back</Button>
+                  )}
+
+                  <Button variant="contained" onClick={handleNext}>
+                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                  </Button>
                 </Box>
               </Box>
             </Card>
