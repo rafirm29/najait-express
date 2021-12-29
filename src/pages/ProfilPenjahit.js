@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -8,11 +8,14 @@ import {
   Avatar,
   Card,
   CardContent,
-} from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+  Skeleton,
+} from '@mui/material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import { getAvailablePenjahit } from '../api/penjahit';
+import { useState } from 'react';
 
-const Penjahit = () => {
+const Penjahit = ({ penjahit }) => {
   return (
     <Box my={2}>
       <Card>
@@ -28,17 +31,10 @@ const Penjahit = () => {
                 fontFamily="Montserrat"
                 fontWeight="bold"
               >
-                Lorem Ipsum
+                {penjahit.name}
               </Typography>
               <Typography variant="body2" align="justify">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Mollitia atque maiores perferendis eligendi vel sit iste,
-                dolorem, natus placeat exercitationem impedit nam at corrupti
-                perspiciatis? Aperiam perferendis dolorum similique culpa! Lorem
-                ipsum dolor sit amet consectetur adipisicing elit. Ullam
-                aspernatur adipisci mollitia, totam sit voluptatem ducimus quam
-                dolore. Sunt ad voluptatum nesciunt necessitatibus iure minima.
-                Fugiat laborum recusandae officiis fuga.
+                {penjahit.description}
               </Typography>
             </CardContent>
           </Grid>
@@ -46,13 +42,13 @@ const Penjahit = () => {
             <Box display="flex" alignItems="center" my={1}>
               <LocationOnIcon color="secondary" />
               <Typography variant="subtitle2" ml={1}>
-                Jl. Apel Blueberry Cherry No. 10, Jakarta
+                {penjahit.address}
               </Typography>
             </Box>
             <Box display="flex" alignItems="center" my={1}>
               <LocalOfferIcon color="secondary" />
               <Typography variant="subtitle2" ml={1}>
-                Rp100.000 - Rp999.000
+                {penjahit.price_range_min} - {penjahit.price_range_max}
               </Typography>
             </Box>
           </Grid>
@@ -62,19 +58,36 @@ const Penjahit = () => {
   );
 };
 
-let listPenjahit = [];
-for (let i = 0; i < 3; i++) {
-  listPenjahit.push(<Penjahit />);
-}
-
 const ProfilPenjahit = () => {
+  const [listPenjahit, setPenjahit] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const retrievePenjahit = async () => {
+    try {
+      const response = await getAvailablePenjahit();
+      const renderedPenjahit = response.map((penjahit) => (
+        <Penjahit penjahit={penjahit} />
+      ));
+      console.log(renderedPenjahit);
+      setPenjahit(renderedPenjahit);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    retrievePenjahit();
+  }, []);
+
   return (
     <React.Fragment>
       <Container>
         <Typography variant="h4" my={3}>
           Profil Penjahit
         </Typography>
-        {listPenjahit}
+        {loading ? <Skeleton /> : listPenjahit}
       </Container>
     </React.Fragment>
   );
