@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -9,15 +9,15 @@ import {
   StepLabel,
   Stepper,
   Typography,
-} from '@mui/material';
-import CheckoutForm from '../components/checkout/CheckoutForm';
-import ReviewOrder from '../components/checkout/ReviewOrder';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import CONFIG from '../config';
-import { useAuth } from '../context/auth';
+} from "@mui/material";
+import CheckoutForm from "../components/checkout/CheckoutForm";
+import ReviewOrder from "../components/checkout/ReviewOrder";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import CONFIG from "../config";
+import { useAuth } from "../context/auth";
 
-const steps = ['Formulir Pemesanan', 'Review Pemesanan'];
+const steps = ["Formulir Pemesanan", "Review Pemesanan"];
 
 function getStepContent(step) {
   switch (step) {
@@ -26,7 +26,7 @@ function getStepContent(step) {
     case 1:
       return <ReviewOrder />;
     default:
-      throw new Error('Unknown step');
+      throw new Error("Unknown step");
   }
 }
 
@@ -35,8 +35,17 @@ function Checkout() {
   const history = useHistory();
   const [activeStep, setActiveStep] = useState(0);
 
+  const [jenis, setJenis] = useState("");
+  const [pakaian, setPakaian] = useState("");
+  const [catatan, setCatatan] = useState("");
+  const [waktu_pesan, setWaktu_pesan] = useState(new Date());
+
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if (jenis == "" || pakaian == "" || catatan == "") {
+      alert("Tidak boleh ada field yang kosong!");
+    } else {
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => {
@@ -45,9 +54,34 @@ function Checkout() {
 
   useEffect(async () => {
     if (!auth.isAuthenticated()) {
-      history.replace('/login');
+      history.replace("/login");
     }
   }, []);
+
+  const handleCheckout = () => {
+    if (jenis == "" || pakaian == "" || catatan == "") {
+      alert("Tidak boleh ada field yang kosong!");
+    } else {
+      const token = localStorage.getItem("token");
+      axios
+        .post(
+          "http://localhost:4000" + `/order/add`,
+          {
+            jenis: jenis,
+            pakaian: pakaian,
+            catatan: catatan,
+            waktu_pesan: waktu_pesan,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then(function (response) {
+          handleNext();
+          history.push("/home");
+          return response;
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
   return (
     <Container>
@@ -59,9 +93,9 @@ function Checkout() {
           item
           xs={12}
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Card>
@@ -90,15 +124,45 @@ function Checkout() {
                 </>
               ) : (
                 <>
-                  {getStepContent(activeStep)}
-                  <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  {activeStep == 0 ? (
+                    <CheckoutForm
+                      jenis={jenis}
+                      setJenis={setJenis}
+                      pakaian={pakaian}
+                      setPakaian={setPakaian}
+                      catatan={catatan}
+                      setCatatan={setCatatan}
+                      waktu_pesan={waktu_pesan}
+                      setWaktu_pesan={setWaktu_pesan}
+                    />
+                  ) : activeStep == 1 ? (
+                    <ReviewOrder
+                      jenis={jenis}
+                      setJenis={setJenis}
+                      pakaian={pakaian}
+                      setPakaian={setPakaian}
+                      catatan={catatan}
+                      setCatatan={setCatatan}
+                      waktu_pesan={waktu_pesan}
+                      setWaktu_pesan={setWaktu_pesan}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                  <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                     {activeStep !== 0 && (
-                      <Button onClick={handleBack}>Back</Button>
+                      <Button onClick={handleBack}>Kembali</Button>
                     )}
 
-                    <Button variant="contained" onClick={handleNext}>
-                      {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                    </Button>
+                    {activeStep === steps.length - 1 ? (
+                      <Button variant="contained" onClick={handleCheckout}>
+                        Pesan
+                      </Button>
+                    ) : (
+                      <Button variant="contained" onClick={handleNext}>
+                        Selanjutnya
+                      </Button>
+                    )}
                   </Box>
                 </>
               )}

@@ -12,12 +12,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { DateTimePicker } from "@mui/lab";
 
-function ReviewOrder() {
-  const [waktu_pesan, setWaktu_pesan] = useState(new Date());
-  const handleWaktu_pesan = (newValue) => {
-    setWaktu_pesan(newValue);
-  };
-
+function ReviewOrder(props) {
   return (
     <Box>
       <Box mb={4}>
@@ -37,7 +32,7 @@ function ReviewOrder() {
           name="jenis"
           label="Jenis Reparasi"
           variant="standard"
-          value="Potong celana"
+          value={props.jenis}
           inputProps={{ readOnly: true }}
         />
         <TextField
@@ -46,7 +41,7 @@ function ReviewOrder() {
           name="pakaian"
           label="Pakaian"
           variant="standard"
-          value="Celana panjang"
+          value={props.pakaian}
           inputProps={{ readOnly: true }}
         />
       </Box>
@@ -59,7 +54,7 @@ function ReviewOrder() {
           name="catatan"
           label="Catatan"
           variant="standard"
-          value="Potong 2cm bagian bawah"
+          value={props.catatan}
           inputProps={{ readOnly: true }}
         />
       </Box>
@@ -76,7 +71,7 @@ function ReviewOrder() {
           id="waktu_pesan"
           name="waktu_pesan"
           label="Waktu Pesan"
-          value={waktu_pesan.toDateString()}
+          value={props.waktu_pesan.toDateString()}
           variant="standard"
           inputProps={{ readOnly: true }}
         />

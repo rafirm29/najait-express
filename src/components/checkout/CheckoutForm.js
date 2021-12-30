@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -12,10 +12,9 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { DateTimePicker } from "@mui/lab";
 
-function CheckoutForm() {
-  const [waktu_pesan, setWaktu_pesan] = useState(new Date());
+function CheckoutForm(props) {
   const handleWaktu_pesan = (newValue) => {
-    setWaktu_pesan(newValue);
+    props.setWaktu_pesan(newValue);
   };
 
   return (
@@ -37,6 +36,8 @@ function CheckoutForm() {
           name="jenis"
           label="Jenis"
           variant="outlined"
+          value={props.jenis}
+          onChange={(e) => props.setJenis(e.target.value)}
         />
         <TextField
           sx={{ flex: 0.49 }}
@@ -44,6 +45,8 @@ function CheckoutForm() {
           name="pakaian"
           label="Pakaian"
           variant="outlined"
+          value={props.pakaian}
+          onChange={(e) => props.setPakaian(e.target.value)}
         />
       </Box>
       <Box>
@@ -55,6 +58,8 @@ function CheckoutForm() {
           name="catatan"
           label="Catatan"
           variant="outlined"
+          value={props.catatan}
+          onChange={(e) => props.setCatatan(e.target.value)}
         />
       </Box>
       <Box
@@ -70,7 +75,7 @@ function CheckoutForm() {
             id="waktu_pesan"
             name="waktu_pesan"
             label="Waktu Pesan"
-            value={waktu_pesan}
+            value={props.waktu_pesan}
             onChange={handleWaktu_pesan}
             renderInput={(params) => <TextField {...params} fullWidth />}
             minDateTime={new Date()}
