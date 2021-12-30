@@ -9,11 +9,11 @@ import {
   CircularProgress,
   Snackbar,
   Alert,
-} from '@mui/material';
-import { Box } from '@mui/system';
-import React, { useEffect, useState } from 'react';
-import { fetchCurrentUser, updateUserProfile } from '../../api/user';
-import CONFIG from '../../config';
+} from "@mui/material";
+import { Box } from "@mui/system";
+import React, { useEffect, useState } from "react";
+import { fetchCurrentUser, updateUserProfile } from "../../api/user";
+import CONFIG from "../../config";
 
 function EditProfileForm() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -22,8 +22,8 @@ function EditProfileForm() {
   const [submitLoading, setSubmitLoading] = useState(false);
   const [snackbarState, setSnackbarState] = useState({
     open: false,
-    type: '',
-    msg: '',
+    type: "",
+    msg: "",
   });
 
   const [profileData, setProfileData] = useState({
@@ -47,7 +47,7 @@ function EditProfileForm() {
     for (const field in error) {
       if (Object.hasOwnProperty.call(error, field)) {
         if (error[field] != null) {
-          console.log(field + '->' + error[field]);
+          console.log(field + "->" + error[field]);
           return true;
         }
       }
@@ -58,51 +58,51 @@ function EditProfileForm() {
   const handleChange = (e) => {
     const target = e.target;
     switch (target.name) {
-      case 'firstName':
+      case "firstName":
         if (target.value.length === 0) {
-          setError({ ...error, firstName: 'First name cannot be empty' });
+          setError({ ...error, firstName: "First name cannot be empty" });
         } else if (target.value.length > 20) {
           setError({
             ...error,
-            firstName: 'First name cannot be more than 20 characters',
+            firstName: "First name cannot be more than 20 characters",
           });
         } else if (!/^[a-z ,.'-]+$/i.test(target.value)) {
-          setError({ ...error, firstName: 'Please enter a valid name' });
+          setError({ ...error, firstName: "Please enter a valid name" });
         } else {
           setError({ ...error, firstName: null });
         }
         setProfileData({ ...profileData, firstName: target.value });
         break;
-      case 'lastName':
+      case "lastName":
         if (target.value.length === 0) {
-          setError({ ...error, lastName: 'Last name cannot be empty' });
+          setError({ ...error, lastName: "Last name cannot be empty" });
         } else if (target.value.length > 20) {
           setError({
             ...error,
-            lastName: 'Last name cannot be more than 20 characters',
+            lastName: "Last name cannot be more than 20 characters",
           });
         } else if (!/^[a-z ,.'-]+$/i.test(target.value)) {
-          setError({ ...error, lastName: 'Please enter a valid name' });
+          setError({ ...error, lastName: "Please enter a valid name" });
         } else {
           setError({ ...error, lastName: null });
         }
         setProfileData({ ...profileData, lastName: target.value });
 
         break;
-      case 'address':
+      case "address":
         if (target.value.length === 0) {
-          setError({ ...error, address: 'Address cannot be empty' });
+          setError({ ...error, address: "Address cannot be empty" });
         } else {
           setError({ ...error, address: null });
         }
         setProfileData({ ...profileData, address: target.value });
 
         break;
-      case 'kodePos':
+      case "kodePos":
         if (!/^(\d{5})?$/.test(target.value)) {
           setError({
             ...error,
-            kodePos: 'Please enter a valid post code or empty',
+            kodePos: "Please enter a valid post code or empty",
           });
         } else {
           setError({ ...error, kodePos: null });
@@ -110,15 +110,15 @@ function EditProfileForm() {
         setProfileData({ ...profileData, kodePos: target.value });
 
         break;
-      case 'phone':
+      case "phone":
         if (target.value.length === 0) {
-          setError({ ...error, phone: 'Phone number cannot be empty' });
+          setError({ ...error, phone: "Phone number cannot be empty" });
         } else if (
           !/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/im.test(
             target.value
           )
         ) {
-          setError({ ...error, phone: 'Please enter a valid phone number' });
+          setError({ ...error, phone: "Please enter a valid phone number" });
         } else {
           setError({ ...error, phone: null });
         }
@@ -134,12 +134,12 @@ function EditProfileForm() {
   const handleSubmit = async () => {
     const payload = new FormData();
     if (selectedImage) {
-      payload.append('image', selectedImage);
+      payload.append("image", selectedImage);
     }
-    payload.append('first_name', profileData.firstName);
-    payload.append('last_name', profileData.lastName);
-    payload.append('address', profileData.address);
-    payload.append('phone', profileData.phone);
+    payload.append("first_name", profileData.firstName);
+    payload.append("last_name", profileData.lastName);
+    payload.append("address", profileData.address);
+    payload.append("phone", profileData.phone);
 
     setSubmitLoading(true);
     let success;
@@ -154,11 +154,11 @@ function EditProfileForm() {
       setSubmitLoading(false);
       setSnackbarState({
         open: true,
-        type: success === true ? 'success' : 'error',
+        type: success === true ? "success" : "error",
         msg:
           success === true
-            ? 'Successfully updated profile'
-            : 'Failed to update profile',
+            ? "Successfully updated profile"
+            : "Failed to update profile",
       });
     }
   };
@@ -218,9 +218,9 @@ function EditProfileForm() {
                   item
                   xs={6}
                   sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   {imageUrl || selectedImage ? (
@@ -229,20 +229,20 @@ function EditProfileForm() {
                         src={imageUrl}
                         alt={imageUrl}
                         style={{
-                          height: '200px',
-                          width: '200px',
-                          borderRadius: '50%',
-                          objectFit: 'cover',
+                          height: "200px",
+                          width: "200px",
+                          borderRadius: "50%",
+                          objectFit: "contain",
                         }}
                       />
                     </Box>
                   ) : (
                     <Box
                       sx={{
-                        height: '200px',
-                        width: '200px',
-                        borderRadius: '50%',
-                        backgroundColor: 'gray',
+                        height: "200px",
+                        width: "200px",
+                        borderRadius: "50%",
+                        backgroundColor: "gray",
                       }}
                     ></Box>
                   )}
@@ -254,7 +254,7 @@ function EditProfileForm() {
                       accept="image/*"
                       type="file"
                       id="select-image"
-                      style={{ display: 'none' }}
+                      style={{ display: "none" }}
                       onChange={(e) => setSelectedImage(e.target.files[0])}
                     />
                     <label htmlFor="select-image">
@@ -288,8 +288,8 @@ function EditProfileForm() {
                     value={profileData.firstName}
                     onChange={handleChange}
                     error={error.firstName}
-                    helperText={error.firstName || ' '}
-                    sx={{ width: '100%' }}
+                    helperText={error.firstName || " "}
+                    sx={{ width: "100%" }}
                   />
                 </Grid>
                 <Grid item xs={6} mt={4} justifySelf="center">
@@ -301,8 +301,8 @@ function EditProfileForm() {
                     value={profileData.lastName}
                     onChange={handleChange}
                     error={error.lastName}
-                    helperText={error.lastName || ' '}
-                    sx={{ width: '100%' }}
+                    helperText={error.lastName || " "}
+                    sx={{ width: "100%" }}
                   />
                 </Grid>
                 <Grid item xs={12} mt={2} justifySelf="center">
@@ -316,8 +316,8 @@ function EditProfileForm() {
                     value={profileData.address}
                     onChange={handleChange}
                     error={error.address}
-                    helperText={error.address || ' '}
-                    sx={{ width: '100%' }}
+                    helperText={error.address || " "}
+                    sx={{ width: "100%" }}
                   />
                 </Grid>
                 <Grid item xs={6} my={2} justifySelf="center">
@@ -329,8 +329,8 @@ function EditProfileForm() {
                     value={profileData.kodePos}
                     onChange={handleChange}
                     error={error.kodePos}
-                    helperText={error.kodePos || ' '}
-                    sx={{ width: '100%' }}
+                    helperText={error.kodePos || " "}
+                    sx={{ width: "100%" }}
                   />
                 </Grid>
                 <Grid item xs={6} my={2} justifySelf="center">
@@ -342,8 +342,8 @@ function EditProfileForm() {
                     value={profileData.phone}
                     onChange={handleChange}
                     error={error.phone}
-                    helperText={error.phone || ' '}
-                    sx={{ width: '100%' }}
+                    helperText={error.phone || " "}
+                    sx={{ width: "100%" }}
                   />
                 </Grid>
                 <Grid
@@ -352,10 +352,10 @@ function EditProfileForm() {
                   my={2}
                   justifySelf="center"
                   sx={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   <Button
@@ -367,8 +367,8 @@ function EditProfileForm() {
                         ? () => {
                             setSnackbarState({
                               open: true,
-                              type: 'error',
-                              msg: 'Please fill in the correct field',
+                              type: "error",
+                              msg: "Please fill in the correct field",
                             });
                           }
                         : handleSubmit
@@ -383,13 +383,13 @@ function EditProfileForm() {
         </Card>
       </Box>
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={submitLoading}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
       <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         autoHideDuration={3000}
         open={snackbarState.open}
         onClose={handleCloseSnackbar}
