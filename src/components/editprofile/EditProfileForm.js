@@ -5,6 +5,10 @@ import {
   Skeleton,
   TextField,
   Typography,
+  Backdrop,
+  CircularProgress,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
@@ -15,6 +19,12 @@ function EditProfileForm() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [snackbarState, setSnackbarState] = useState({
+    open: false,
+    type: '',
+    msg: '',
+  });
 
   const [profileData, setProfileData] = useState({
     image: null,
@@ -32,6 +42,18 @@ function EditProfileForm() {
     kodePos: null,
     phone: null,
   });
+
+  const checkError = () => {
+    for (const field in error) {
+      if (Object.hasOwnProperty.call(error, field)) {
+        if (error[field] != null) {
+          console.log(field + '->' + error[field]);
+          return true;
+        }
+      }
+    }
+    return false;
+  };
 
   const handleChange = (e) => {
     const target = e.target;
@@ -119,14 +141,30 @@ function EditProfileForm() {
     payload.append('address', profileData.address);
     payload.append('phone', profileData.phone);
 
+    setSubmitLoading(true);
+    let success;
     try {
-      console.log('Updating');
       const response = await updateUserProfile(payload);
-      console.log('Finish');
       console.log(response);
+      success = true;
     } catch (error) {
       console.error(error);
+      success = false;
+    } finally {
+      setSubmitLoading(false);
+      setSnackbarState({
+        open: true,
+        type: success === true ? 'success' : 'error',
+        msg:
+          success === true
+            ? 'Successfully updated profile'
+            : 'Failed to update profile',
+      });
     }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarState({ ...snackbarState, open: false });
   };
 
   useEffect(() => {
@@ -250,7 +288,7 @@ function EditProfileForm() {
                     value={profileData.firstName}
                     onChange={handleChange}
                     error={error.firstName}
-                    helperText={error.firstName && error.firstName}
+                    helperText={error.firstName || ' '}
                     sx={{ width: '100%' }}
                   />
                 </Grid>
@@ -263,7 +301,7 @@ function EditProfileForm() {
                     value={profileData.lastName}
                     onChange={handleChange}
                     error={error.lastName}
-                    helperText={error.lastName && error.lastName}
+                    helperText={error.lastName || ' '}
                     sx={{ width: '100%' }}
                   />
                 </Grid>
@@ -278,7 +316,7 @@ function EditProfileForm() {
                     value={profileData.address}
                     onChange={handleChange}
                     error={error.address}
-                    helperText={error.address && error.address}
+                    helperText={error.address || ' '}
                     sx={{ width: '100%' }}
                   />
                 </Grid>
@@ -291,7 +329,7 @@ function EditProfileForm() {
                     value={profileData.kodePos}
                     onChange={handleChange}
                     error={error.kodePos}
-                    helperText={error.kodePos && error.kodePos}
+                    helperText={error.kodePos || ' '}
                     sx={{ width: '100%' }}
                   />
                 </Grid>
@@ -304,7 +342,7 @@ function EditProfileForm() {
                     value={profileData.phone}
                     onChange={handleChange}
                     error={error.phone}
-                    helperText={error.phone && error.phone}
+                    helperText={error.phone || ' '}
                     sx={{ width: '100%' }}
                   />
                 </Grid>
@@ -324,7 +362,17 @@ function EditProfileForm() {
                     variant="contained"
                     color="primary"
                     component="span"
-                    onClick={handleSubmit}
+                    onClick={
+                      checkError()
+                        ? () => {
+                            setSnackbarState({
+                              open: true,
+                              type: 'error',
+                              msg: 'Please fill in the correct field',
+                            });
+                          }
+                        : handleSubmit
+                    }
                   >
                     Simpan
                   </Button>
@@ -334,6 +382,20 @@ function EditProfileForm() {
           </Grid>
         </Card>
       </Box>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={submitLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={3000}
+        open={snackbarState.open}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert severity={snackbarState.type}>{snackbarState.msg}</Alert>
+      </Snackbar>
     </>
   );
 }
