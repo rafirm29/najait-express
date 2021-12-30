@@ -121,7 +121,12 @@ const LogIn = () => {
           {feedback ? (
             <Alert severity={feedback.type}>{feedback.msg}</Alert>
           ) : null}
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            autoComplete="off"
+            onSubmit={handleSubmit}
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
@@ -129,7 +134,6 @@ const LogIn = () => {
               id="email"
               label="Email Address"
               name="email"
-              autoComplete="email"
               autoFocus
             />
             <TextField
@@ -140,7 +144,6 @@ const LogIn = () => {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
             />
             <LoadingButton
               loading={loading}
