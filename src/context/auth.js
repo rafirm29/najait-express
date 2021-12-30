@@ -9,6 +9,7 @@ export const useAuth = () => useContext(AuthContext);
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [user, setUser] = useState(null);
+  const [isLoading, setLoading] = useState(true);
 
   // Set token to local storage everytime token changes
   useEffect(() => {
@@ -33,6 +34,8 @@ const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error(error);
         setToken('');
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -49,6 +52,7 @@ const AuthProvider = ({ children }) => {
         getToken: () => token,
         setToken,
         isAuthenticated: () => token !== '',
+        isLoading,
       }}
     >
       {children}

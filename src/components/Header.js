@@ -6,6 +6,7 @@ import {
   Button,
   Drawer,
   Popover,
+  Skeleton,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { NavLink, Link } from 'react-router-dom';
@@ -67,11 +68,11 @@ const Header = () => {
   const open = Boolean(anchorEl);
 
   useEffect(() => {
-    if (auth.isAuthenticated()) {
+    if (auth.isAuthenticated() && !auth.isLoading) {
       const user = auth.getUser().first_name || null;
       setUser(user);
     }
-  }, []);
+  }, [auth.isLoading]);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -154,14 +155,14 @@ const Header = () => {
               margin: { xs: '0 12px', md: '0 18px' },
               fontWeight: { xs: 500, md: 700 },
             }}
-            onClick={user ? handleClickPopover : () => {}}
+            onClick={auth.isAuthenticated() ? handleClickPopover : () => {}}
           >
             {user || (
               <Link
                 to="/login"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                Masuk
+                {auth.isAuthenticated() ? <Skeleton /> : 'Masuk'}
               </Link>
             )}
           </Button>

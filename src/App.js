@@ -1,19 +1,20 @@
-import React from "react";
-import { Typography, ThemeProvider, createTheme, Box } from "@mui/material";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import "./App.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import ProfilPenjahit from "./pages/ProfilPenjahit";
-import Cart from "./pages/Cart";
-import OrderSaya from "./pages/OrderSaya";
-import AboutUs from "./pages/AboutUs";
-import LogIn from "./pages/LogIn";
-import SignUp from "./pages/SignUp";
-import Feedback from "./pages/Feedback";
-import EditProfile from "./pages/EditProfile";
-import Checkout from "./pages/Checkout";
+import React from 'react';
+import { ThemeProvider, createTheme, Box, Skeleton } from '@mui/material';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import './App.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import ProfilPenjahit from './pages/ProfilPenjahit';
+import Cart from './pages/Cart';
+import OrderSaya from './pages/OrderSaya';
+import AboutUs from './pages/AboutUs';
+import LogIn from './pages/LogIn';
+import SignUp from './pages/SignUp';
+import Feedback from './pages/Feedback';
+import EditProfile from './pages/EditProfile';
+import Checkout from './pages/Checkout';
+import { useAuth } from './context/auth';
 
 const THEME = createTheme({
   typography: {
@@ -36,10 +37,10 @@ const THEME = createTheme({
   },
   palette: {
     primary: {
-      main: "#266679",
+      main: '#266679',
     },
     secondary: {
-      main: "#F6A25A",
+      main: '#F6A25A',
     },
   },
 });
@@ -48,9 +49,9 @@ const Main = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
       }}
     >
       <Header />
