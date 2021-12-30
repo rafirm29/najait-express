@@ -11,3 +11,14 @@ export const fetchCurrentUser = () => {
     })
     .then((response) => response.data);
 };
+
+export const updateUserProfile = (payload) => {
+  const token = localStorage.getItem('token') || '';
+  return axios
+    .put(`${CONFIG.API_URL}/user/profile`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response);
+};

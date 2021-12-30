@@ -8,7 +8,8 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
-import { fetchCurrentUser } from '../../api/user';
+import { fetchCurrentUser, updateUserProfile } from '../../api/user';
+import CONFIG from '../../config';
 
 function EditProfileForm() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -108,6 +109,26 @@ function EditProfileForm() {
     }
   };
 
+  const handleSubmit = async () => {
+    const payload = new FormData();
+    if (selectedImage) {
+      payload.append('image', selectedImage);
+    }
+    payload.append('first_name', profileData.firstName);
+    payload.append('last_name', profileData.lastName);
+    payload.append('address', profileData.address);
+    payload.append('phone', profileData.phone);
+
+    try {
+      console.log('Updating');
+      const response = await updateUserProfile(payload);
+      console.log('Finish');
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     if (selectedImage) {
       setImageUrl(URL.createObjectURL(selectedImage));
@@ -120,7 +141,7 @@ function EditProfileForm() {
   useEffect(async () => {
     try {
       const response = await fetchCurrentUser();
-      const { first_name, last_name, address, phone } = response;
+      const { first_name, last_name, address, phone, picture } = response;
       setProfileData({
         ...profileData,
         firstName: first_name,
@@ -128,6 +149,7 @@ function EditProfileForm() {
         address,
         phone,
       });
+      setImageUrl(`${CONFIG.API_URL}/${picture}`);
     } catch (error) {
       console.error(error);
     } finally {
@@ -148,6 +170,7 @@ function EditProfileForm() {
             columnSpacing={2}
             alignItems="center"
             justifyContent="center"
+            onSubmit={handleSubmit}
           >
             {loading ? (
               <Skeleton variant="rectangular" w="100%" h={216} />
@@ -166,7 +189,7 @@ function EditProfileForm() {
                     <Box>
                       <img
                         src={imageUrl}
-                        alt={selectedImage.name}
+                        alt={imageUrl}
                         style={{
                           height: '200px',
                           width: '200px',
@@ -297,7 +320,12 @@ function EditProfileForm() {
                     justifyContent: 'center',
                   }}
                 >
-                  <Button variant="contained" color="primary" component="span">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component="span"
+                    onClick={handleSubmit}
+                  >
                     Simpan
                   </Button>
                 </Grid>
