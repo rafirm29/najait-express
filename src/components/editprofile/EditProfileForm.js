@@ -232,7 +232,7 @@ function EditProfileForm() {
                           height: "200px",
                           width: "200px",
                           borderRadius: "50%",
-                          objectFit: "contain",
+                          objectFit: "cover",
                         }}
                       />
                     </Box>
