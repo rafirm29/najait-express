@@ -65,7 +65,7 @@ function Checkout() {
       const token = localStorage.getItem("token");
       axios
         .post(
-          "http://localhost:4000" + `/order/add`,
+          CONFIG.API_URL + `/order/add`,
           {
             jenis: jenis,
             pakaian: pakaian,
