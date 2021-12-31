@@ -5,14 +5,14 @@ import {
   AccordionDetails,
   Typography,
   Box,
-} from '@mui/material';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-import React, { useState } from 'react';
-import SectionTitle from '../SectionTitle';
+} from "@mui/material";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import React, { useState } from "react";
+import SectionTitle from "../SectionTitle";
 
 const faqList = [
   {
-    question: 'Question 1',
+    question: "Question 1",
     answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
   eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -20,7 +20,7 @@ const faqList = [
   eget.`,
   },
   {
-    question: 'Question 2',
+    question: "Question 2",
     answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
   eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -28,7 +28,7 @@ const faqList = [
   eget.`,
   },
   {
-    question: 'Question 3',
+    question: "Question 3",
     answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
   eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -36,7 +36,7 @@ const faqList = [
   eget.`,
   },
   {
-    question: 'Question 4',
+    question: "Question 4",
     answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
   eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -44,7 +44,7 @@ const faqList = [
   eget.`,
   },
   {
-    question: 'Question 5',
+    question: "Question 5",
     answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
   eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -52,7 +52,7 @@ const faqList = [
   eget.`,
   },
   {
-    question: 'Question 6',
+    question: "Question 6",
     answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
   eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -71,17 +71,17 @@ const Faq = () => {
   return (
     <Grid
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        minHeight: '100vh',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        minHeight: "100vh",
       }}
     >
       <SectionTitle text="Frequently Asked Questions" dark={true} />
       <Box p={2} m={1}>
         {faqList.map((faq) => {
           panel++;
-          const currentPanel = 'panel' + panel;
+          const currentPanel = "panel" + panel;
           return (
             <Accordion
               expanded={expanded === currentPanel}
@@ -90,13 +90,13 @@ const Faq = () => {
               <AccordionSummary
                 expandIcon={
                   <ArrowForwardIosSharpIcon
-                    sx={{ transform: 'rotate(90deg)' }}
+                    sx={{ transform: "rotate(90deg)" }}
                   />
                 }
-                aria-controls={currentPanel + 'd-content'}
-                id={currentPanel + 'd-header'}
+                aria-controls={currentPanel + "d-content"}
+                id={currentPanel + "d-header"}
                 sx={{
-                  backgroundColor: '#F5F5F5',
+                  backgroundColor: "#F5F5F5",
                 }}
               >
                 <Typography fontWeight="bold">{faq.question}</Typography>

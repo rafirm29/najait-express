@@ -1,10 +1,11 @@
-import { Typography, Box } from '@mui/material';
-import React from 'react';
+import { Typography, Box } from "@mui/material";
+import React from "react";
 
 const SectionTitle = ({ text, dark }) => {
   return (
     <Box
       mt={4}
+      mx={3}
       px={2}
       py={1}
       height="fit-content"
