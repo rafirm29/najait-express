@@ -1,6 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { logOutUser } from '../api/auth';
 import { fetchCurrentUser } from '../api/user';
 
 const AuthContext = createContext({});
@@ -40,6 +41,15 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // Handle logout
+  const logOut = async () => {
+    console.log('Log out');
+    await logOutUser();
+    setUser(null);
+    setToken('');
+    window.location.reload();
+  };
+
   useEffect(() => {
     retrieveUser();
   }, []);
@@ -52,6 +62,7 @@ const AuthProvider = ({ children }) => {
         getToken: () => token,
         setToken,
         isAuthenticated: () => token !== '',
+        logOut,
         isLoading,
       }}
     >

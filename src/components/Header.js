@@ -5,12 +5,17 @@ import {
   Typography,
   Button,
   Drawer,
-  Popover,
+  Popper,
+  Paper,
   Skeleton,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, Redirect } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EditIcon from '@mui/icons-material/Edit';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Logo from './Logo';
 import { makeStyles } from '@mui/styles';
 import { useAuth } from '../context/auth';
@@ -56,16 +61,17 @@ const Header = () => {
   });
   const [user, setUser] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openPopper, setOpenPopper] = useState(false);
 
   const handleClickPopover = (event) => {
     setAnchorEl(event.currentTarget);
+    setOpenPopper(!openPopper);
   };
 
   const handleClosePopover = () => {
     setAnchorEl(null);
+    setOpenPopper(false);
   };
-
-  const open = Boolean(anchorEl);
 
   useEffect(() => {
     if (auth.isAuthenticated() && !auth.isLoading) {
@@ -153,47 +159,104 @@ const Header = () => {
             color="primary"
             sx={{
               margin: { xs: '0 12px', md: '0 18px' },
+              paddingLeft: 1.5,
+              paddingRight: 1.5,
               fontWeight: { xs: 500, md: 700 },
             }}
             onClick={auth.isAuthenticated() ? handleClickPopover : () => {}}
           >
-            {user || (
-              <Link
-                to="/login"
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                {auth.isAuthenticated() ? <Skeleton /> : 'Masuk'}
-              </Link>
-            )}
+            <Box display="flex" alignItems="center">
+              {user ? (
+                <>
+                  <AccountCircleIcon color="inherit" />
+                  <Box ml={0.75} mr={0.5}>
+                    {user}
+                  </Box>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  {auth.isAuthenticated() ? (
+                    <Skeleton />
+                  ) : (
+                    <Box display="flex" alignItems="center">
+                      <LoginIcon color="inherit" mr={1} />
+                      <Box ml={1}>Masuk</Box>
+                    </Box>
+                  )}
+                </Link>
+              )}
+            </Box>
           </Button>
-          <Popover
-            open={open}
+          <Popper
+            open={openPopper}
             anchorEl={anchorEl}
             onClose={handleClosePopover}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
+            placement="bottom-end"
           >
-            <Typography p={1.5} color="primary" fontWeight="bold">
-              <Link
-                to="/editprofile"
-                style={{
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  ':hover': {
+            <Paper
+              sx={{
+                borderBottomLeftRadius: 0,
+                borderBottomRightRadius: 0,
+              }}
+            >
+              <Box
+                display="flex"
+                alignItems="center"
+                p={1}
+                sx={{
+                  cursor: 'pointer',
+                  '&:hover': {
                     textDecoration: 'underline',
                   },
                 }}
+                onClick={() => (window.location.href = '/editprofile')}
               >
-                Edit profil
-              </Link>
-            </Typography>
-          </Popover>
+                <EditIcon color="primary" fontSize="sm" />
+                <Typography
+                  variant="subtitle2"
+                  ml={1}
+                  color="primary"
+                  fontWeight="bold"
+                >
+                  Edit profil
+                </Typography>
+              </Box>
+            </Paper>
+            <Paper
+              sx={{
+                borderTopLeftRadius: 0,
+                borderTopRightRadius: 0,
+              }}
+            >
+              <Box
+                display="flex"
+                alignItems="center"
+                p={1}
+                sx={{
+                  cursor: 'pointer',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  },
+                }}
+                onClick={() => {
+                  auth.logOut();
+                }}
+              >
+                <LogoutIcon color="primary" fontSize="sm" />
+                <Typography
+                  variant="subtitle2"
+                  ml={1}
+                  color="primary"
+                  fontWeight="bold"
+                >
+                  Log out
+                </Typography>
+              </Box>
+            </Paper>
+          </Popper>
         </Box>
       </Toolbar>
     </AppBar>
