@@ -1,10 +1,7 @@
-import { Button, Container, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import EditProfileForm from '../components/editprofile/EditProfileForm';
-import jwt from 'jsonwebtoken';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import CONFIG from '../config';
 import { useAuth } from '../context/auth';
 
 const EditProfileContent = () => {
@@ -23,7 +20,7 @@ const EditProfile = () => {
   const history = useHistory();
 
   useEffect(async () => {
-    if (!auth.isAuthenticated) {
+    if (!auth.isAuthenticated()) {
       history.replace('/login');
     }
   }, []);
