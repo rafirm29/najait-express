@@ -20,12 +20,10 @@ const AuthProvider = ({ children }) => {
   // Get user
 
   const retrieveUser = async () => {
-    console.log('Retrieving user');
     const token = localStorage.getItem('token');
     if (token) {
       try {
         const user = await fetchCurrentUser();
-        console.log('User fetched');
         const userPayload = {
           id_user: user.userprofileIdUser,
           first_name: user.first_name,
@@ -43,7 +41,6 @@ const AuthProvider = ({ children }) => {
 
   // Handle logout
   const logOut = async () => {
-    console.log('Log out');
     await logOutUser();
     setUser(null);
     setToken('');

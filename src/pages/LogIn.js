@@ -51,7 +51,6 @@ const LogIn = () => {
       email: data.get('email'),
       password: data.get('password'),
     };
-    console.log(payload);
     setLoading(true);
     setFeedback(null);
     try {
@@ -60,7 +59,6 @@ const LogIn = () => {
         payload
       );
       const { data } = response;
-      console.log(data);
       localStorage.setItem('token', data.accessToken);
       setFeedback({
         type: 'success',
@@ -70,8 +68,7 @@ const LogIn = () => {
         window.location.href = '/home';
       }, 1500);
     } catch (err) {
-      console.log('Error: Failed to log in');
-      console.log(err);
+      console.error(err);
       setFeedback({
         type: 'error',
         msg: 'Invalid username or password. Please try again',

@@ -68,7 +68,6 @@ const ProfilPenjahit = () => {
       const renderedPenjahit = response.map((penjahit) => (
         <Penjahit penjahit={penjahit} />
       ));
-      console.log(renderedPenjahit);
       setPenjahit(renderedPenjahit);
     } catch (error) {
       console.error(error);
