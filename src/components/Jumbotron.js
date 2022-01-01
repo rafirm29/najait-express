@@ -27,22 +27,19 @@ const Jumbotron = () => {
               exercitationem fuga pariatur quas non consectetur repudiandae
               suscipit similique? Asperiores voluptatum a corporis.
             </Typography>
-            <Button
-              variant="contained"
-              color="secondary"
-              sx={{
-                marginTop: '18px',
-                fontWeight: 700,
-                color: 'white',
-              }}
-            >
-              <Link
-                to="/checkout"
-                style={{ textDecoration: 'none', color: 'inherit' }}
+            <Link to="/checkout" style={{ textDecoration: 'none' }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                sx={{
+                  marginTop: '18px',
+                  fontWeight: 700,
+                  color: 'white',
+                }}
               >
                 Order Sekarang
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </Box>
         </Container>
       </Grid>
