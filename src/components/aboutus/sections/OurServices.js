@@ -24,13 +24,16 @@ const OurServices = () => {
       }}
     >
       <SectionTitle text="Our Services" />
-      <Grid item xs={8} sm={4} md={3} mt={3}>
+      <Grid item xs={9} sm={7} md={5} mt={3}>
         <Card>
           <Box
             px={6}
             pt={3}
             mt={3}
-            sx={{ display: { xs: "block" }, mx: { xs: 4, sm: 6 } }}
+            sx={{
+              display: { xs: "block" },
+              mx: { xs: 5, sm: 10, md: 15, lg: 20 },
+            }}
           >
             <CardMedia
               component="img"

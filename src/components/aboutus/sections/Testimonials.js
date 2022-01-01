@@ -33,7 +33,7 @@ const TestimonialItems = () => {
     <Grid
       container
       justifyContent="center"
-      alignItems="center"
+      alignItems="flex-start"
       height="100%"
       spacing={2}
       px={2}
@@ -41,7 +41,7 @@ const TestimonialItems = () => {
     >
       {testimonials.map((testimonial) => {
         return (
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={10} md={8}>
             <Card sx={{ minHeight: "12.5rem" }}>
               <CardHeader
                 avatar={<Avatar />}
@@ -53,7 +53,10 @@ const TestimonialItems = () => {
                 subheader={testimonial.title}
               />
               <CardContent sx={{ paddingTop: 0 }}>
-                <Typography variant="subtitle2">
+                <Typography
+                  variant="subtitle2"
+                  sx={{ fontSize: { xs: "14px" } }}
+                >
                   {testimonial.comment}
                 </Typography>
               </CardContent>
@@ -65,6 +68,7 @@ const TestimonialItems = () => {
   );
 };
 
+// !!! SM responsive
 const Testimonials = () => {
   return (
     <Grid
