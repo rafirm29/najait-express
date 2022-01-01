@@ -32,12 +32,32 @@ const Footer = () => {
             <Grid item xs={12} sm={4}>
               <Box height="54px" display="flex" alignItems="center">
                 <Typography variant="h6" fontWeight="bold">
-                  Daftar
+                  Halaman
                 </Typography>
               </Box>
               <Box mt={1}>
                 <Link
-                  href="#"
+                  href="/aboutus"
+                  underline="none"
+                  color="inherit"
+                  variant="subtitle2"
+                >
+                  About Us
+                </Link>
+              </Box>
+              <Box mt={1}>
+                <Link
+                  href="/home"
+                  underline="none"
+                  color="inherit"
+                  variant="subtitle2"
+                >
+                  Beranda
+                </Link>
+              </Box>
+              <Box mt={1}>
+                <Link
+                  href="/profilpenjahit"
                   underline="none"
                   color="inherit"
                   variant="subtitle2"
