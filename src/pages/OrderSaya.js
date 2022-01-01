@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import DaftarPenjahit from '../components/odersaya/DaftarPenjahit';
 import PesananSaya from '../components/odersaya/PesananSaya';
 import { useAuth } from '../context/auth';
-import { fetchCurrentUser } from '../api/user';
+import { fetchCurrentUser, fetchReviewOrder } from '../api/user';
 import { getAvailablePenjahit } from '../api/penjahit';
 
 const MyOrderContent = () => {
@@ -13,34 +13,41 @@ const MyOrderContent = () => {
 
   const [loading, setLoading] = useState(true);
   const [myOrder, setMyOrder] = useState([]);
+  const [needReview, setNeedReview] = useState(false);
+
   useEffect(async () => {
     if (!auth.isAuthenticated()) {
       history.replace('/login');
     }
     try {
-      const { order } = await fetchCurrentUser();
-      const daftarPenjahit = await getAvailablePenjahit();
-      const formattedOrder = order.map((order) => {
-        if (order.inbound.status === 'ongoing') {
-          const penjahit = daftarPenjahit.filter(
-            (penjahit) =>
-              penjahit.id_penjahit === order.inbound.inboundIdPenjahit
-          )[0];
-          return { ...order, penjahit: penjahit.name };
-        }
-        return { ...order, penjahit: null };
-      });
-      console.log(formattedOrder);
-      setMyOrder(formattedOrder);
+      const review = await fetchReviewOrder();
+      if (!review) {
+        const { order } = await fetchCurrentUser();
+        const daftarPenjahit = await getAvailablePenjahit();
+        const formattedOrder = order.map((order) => {
+          if (order.inbound.status === 'ongoing') {
+            const penjahit = daftarPenjahit.filter(
+              (penjahit) =>
+                penjahit.id_penjahit === order.inbound.inboundIdPenjahit
+            )[0];
+            return { ...order, penjahit: penjahit.name };
+          }
+          return { ...order, penjahit: null };
+        });
+        setMyOrder(formattedOrder);
+      } else {
+        setNeedReview(true);
+      }
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
-      console.log(myOrder);
     }
   }, []);
 
   if (loading) return <Skeleton />;
+
+  if (needReview) history.push('/feedback');
 
   if (myOrder.length === 0)
     return (

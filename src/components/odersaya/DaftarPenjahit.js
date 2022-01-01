@@ -1,34 +1,15 @@
 import {
-  Container,
   Typography,
   Box,
   Card,
   CardContent,
   Grid,
   Avatar,
-  Button,
   Skeleton,
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import React, { useState, useEffect } from 'react';
 import { getAvailablePenjahit } from '../../api/penjahit';
-
-const dummyPenjahit = [
-  {
-    avatar: 'P',
-    name: 'Lorem Lorem',
-    location: 'Tangerang',
-    availableLocation: ['Tangerang', 'Jakarta', 'Bandung'],
-    available: true,
-  },
-  {
-    avatar: 'X',
-    name: 'Xorem Xorem',
-    location: 'Jakarta',
-    availableLocation: ['Jakarta'],
-    available: false,
-  },
-];
 
 const Status = ({ available }) => {
   return (

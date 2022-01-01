@@ -182,7 +182,9 @@ function EditProfileForm() {
         address,
         phone,
       });
-      setImageUrl(`${CONFIG.API_URL}/${picture}`);
+      if (picture) {
+        setImageUrl(`${CONFIG.API_URL}/${picture}`);
+      }
     } catch (error) {
       console.error(error);
     } finally {
