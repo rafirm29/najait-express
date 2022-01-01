@@ -143,7 +143,7 @@ function EditProfileForm() {
     setSubmitLoading(true);
     let success;
     try {
-      const response = await updateUserProfile(payload);
+      await updateUserProfile(payload);
       success = true;
     } catch (error) {
       console.error(error);
@@ -173,8 +173,8 @@ function EditProfileForm() {
 
   useEffect(async () => {
     try {
-      const response = await fetchCurrentUser();
-      const { first_name, last_name, address, phone, picture } = response;
+      const { user } = await fetchCurrentUser();
+      const { first_name, last_name, address, phone, picture } = user;
       setProfileData({
         ...profileData,
         firstName: first_name,
