@@ -40,8 +40,8 @@ const HeaderContent = () => {
           sx={{
             padding: 0,
             margin: 0,
-            width: { xs: "8rem", sm: "10rem" },
-            height: { xs: "8rem", sm: "10rem" },
+            width: { xs: "6rem", sm: "10rem" },
+            height: { xs: "6rem", sm: "10rem" },
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -56,7 +56,7 @@ const HeaderContent = () => {
         <Typography
           variant="h1"
           color="white"
-          sx={{ fontSize: { xs: "80px", sm: "96px" } }}
+          sx={{ fontSize: { xs: "72px", sm: "96px" } }}
         >
           Najait
         </Typography>

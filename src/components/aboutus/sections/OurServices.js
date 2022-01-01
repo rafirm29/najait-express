@@ -5,28 +5,33 @@ import {
   Card,
   CardMedia,
   CardContent,
-} from '@mui/material';
-import SectionTitle from '../SectionTitle';
-import React from 'react';
+} from "@mui/material";
+import SectionTitle from "../SectionTitle";
+import React from "react";
 
 const OurServices = () => {
   return (
     <Grid
       container
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         background: `linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("./assets/images/about-us-2.png")`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        height: '100vh',
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
       }}
     >
       <SectionTitle text="Our Services" />
-      <Grid item xs={6} sm={4} md={3} mt={3}>
+      <Grid item xs={8} sm={4} md={3} mt={3}>
         <Card>
-          <Box px={6} pt={3} mx={5} mt={3}>
+          <Box
+            px={6}
+            pt={3}
+            mt={3}
+            sx={{ display: { xs: "block" }, mx: { xs: 4, sm: 6 } }}
+          >
             <CardMedia
               component="img"
               image="./assets/images/najait-express.png"

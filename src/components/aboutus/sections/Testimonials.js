@@ -6,24 +6,24 @@ import {
   Avatar,
   CardContent,
   Typography,
-} from '@mui/material';
-import React from 'react';
-import SectionTitle from '../SectionTitle';
+} from "@mui/material";
+import React from "react";
+import SectionTitle from "../SectionTitle";
 
 const testimonials = [
   {
-    author: 'Ujang',
-    title: 'Pelajar',
+    author: "Ujang",
+    title: "Pelajar",
     comment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dapibus suscipit diam eget dictum.`,
   },
   {
-    author: 'Ujang',
-    title: 'Pelajar',
+    author: "Ujang",
+    title: "Pelajar",
     comment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dapibus suscipit diam eget dictum.`,
   },
   {
-    author: 'Ujang',
-    title: 'Pelajar',
+    author: "Ujang",
+    title: "Pelajar",
     comment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dapibus suscipit diam eget dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dapibus suscipit diam eget dictum.`,
   },
 ];
@@ -37,11 +37,12 @@ const TestimonialItems = () => {
       height="100%"
       spacing={2}
       px={2}
+      mt={2}
     >
       {testimonials.map((testimonial) => {
         return (
           <Grid item xs={12} sm={6} md={4}>
-            <Card sx={{ minHeight: '12.5rem' }}>
+            <Card sx={{ minHeight: "12.5rem" }}>
               <CardHeader
                 avatar={<Avatar />}
                 title={
@@ -68,11 +69,11 @@ const Testimonials = () => {
   return (
     <Grid
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        backgroundColor: '#8ED1C0',
-        height: '100vh',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor: "#8ED1C0",
+        pb: 4,
       }}
     >
       <SectionTitle text="Testimonials" />
