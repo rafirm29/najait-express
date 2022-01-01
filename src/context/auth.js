@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        const user = await fetchCurrentUser();
+        const { user } = await fetchCurrentUser();
         const userPayload = {
           id_user: user.userprofileIdUser,
           first_name: user.first_name,
