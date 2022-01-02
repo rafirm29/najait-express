@@ -86,7 +86,13 @@ const ProfilPenjahit = () => {
         <Typography variant="h4" my={3}>
           Profil Penjahit
         </Typography>
-        {loading ? <Skeleton /> : listPenjahit}
+        {loading ? (
+          <Skeleton height={200} />
+        ) : listPenjahit.length === 0 ? (
+          <Typography>Tidak ada penjahit</Typography>
+        ) : (
+          listPenjahit
+        )}
       </Container>
     </React.Fragment>
   );

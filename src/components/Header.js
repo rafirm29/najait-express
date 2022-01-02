@@ -179,7 +179,7 @@ const Header = () => {
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                   {auth.isAuthenticated() ? (
-                    <Skeleton />
+                    <Skeleton width={32} />
                   ) : (
                     <Box display="flex" alignItems="center">
                       <LoginIcon color="inherit" mr={1} />

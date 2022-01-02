@@ -1,4 +1,4 @@
-import { Container, Skeleton, Typography } from '@mui/material';
+import { Container, Skeleton, Typography, Box } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import DaftarPenjahit from '../components/odersaya/DaftarPenjahit';
@@ -45,7 +45,12 @@ const MyOrderContent = () => {
     }
   }, []);
 
-  if (loading) return <Skeleton />;
+  if (loading)
+    return (
+      <>
+        <Skeleton height={300} />
+      </>
+    );
 
   if (needReview) history.push('/feedback');
 
