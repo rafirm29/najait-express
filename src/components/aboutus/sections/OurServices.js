@@ -53,10 +53,12 @@ const OurServices = () => {
               Express
             </Typography>
             <Typography variant="subtitle2">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Temporibus, ratione recusandae id sit corporis iure ullam nam
-              exercitationem fuga pariatur quas non consectetur repudiandae
-              suscipit similique? Asperiores voluptatum a corporis.
+              Najait menyediakan reparasi pakaian yang cepat dan berkualitas
+              dengan harga yang terjangkau. Mitra penjahit kami dapat melakukan
+              segala yang kamu inginkan dengan pakaianmu, seperti penjahitan,
+              pengecilan dan pembesaran, penambalan lubang, pemasangan
+              retsleting, dan lain-lain! Segala jasa tersedia, sesuai
+              keinginanmu!
             </Typography>
           </CardContent>
         </Card>

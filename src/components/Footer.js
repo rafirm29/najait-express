@@ -1,14 +1,14 @@
-import { Container, Grid, Link, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import React from 'react';
-import Logo from './Logo';
-import EmailIcon from '@mui/icons-material/Email';
-import CallIcon from '@mui/icons-material/Call';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Container, Grid, Link, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import React from "react";
+import Logo from "./Logo";
+import EmailIcon from "@mui/icons-material/Email";
+import CallIcon from "@mui/icons-material/Call";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const Footer = () => {
   return (
-    <Box component="footer" sx={{ mt: 'auto' }}>
+    <Box component="footer" sx={{ mt: "auto" }}>
       <Box bgcolor="#266679" py={5}>
         <Container>
           <Grid container columnSpacing={5} color="white">
@@ -22,10 +22,9 @@ const Footer = () => {
                   ml={1}
                   pr={6}
                 >
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Excepturi in, eaque dolorem sint voluptate voluptatibus odio!
-                  Eaque nisi, magni earum expedita nemo ea molestias maiores
-                  aliquid cupiditate ipsum laboriosam a?
+                  Mitra perantara yang menghubungkan para penjahit keliling
+                  dengan kalian, para kawan jahit yang membutuhkan jasa
+                  reparasi/vermak baju
                 </Typography>
               </Box>
             </Grid>

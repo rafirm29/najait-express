@@ -5,6 +5,7 @@ import {
   Card,
   Container,
   Grid,
+  MenuItem,
   TextField,
   Typography,
 } from "@mui/material";
@@ -38,7 +39,13 @@ function CheckoutForm(props) {
           variant="outlined"
           value={props.jenis}
           onChange={(e) => props.setJenis(e.target.value)}
-        />
+          select
+        >
+          <MenuItem value="Pasang Kancing">Pasang Kancing</MenuItem>
+          <MenuItem value="Potong Bahan">Potong Bahan</MenuItem>
+          <MenuItem value="Mengecilkan Pakaian">Mengecilkan Pakaian</MenuItem>
+          <MenuItem value="Vermak">Vermak</MenuItem>
+        </TextField>
         <TextField
           sx={{ flex: 0.49 }}
           id="pakaian"

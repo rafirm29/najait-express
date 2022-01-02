@@ -12,52 +12,20 @@ import SectionTitle from "../SectionTitle";
 
 const faqList = [
   {
-    question: "Question 1",
-    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget.`,
+    question: "Jam operasional penjahit kapan saja ya?",
+    answer: `Untuk saat ini operasional penjahit dari jam 08.00-17.00 WIB ya! Tapi kamu bisa banget untuk request order sesuai tanggal yang kamu inginkan`,
   },
   {
-    question: "Question 2",
-    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget.`,
+    question: "Apa bisa order diluar wilayah Bintaro?",
+    answer: `Sayang sekali untuk saat ini belum bisa, silahkan isi link https://bit.ly/PenambahanLokasi supaya Najait bisa hadir di wilayah rumah/kantor kalian!`,
   },
   {
-    question: "Question 3",
-    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget.`,
+    question: "Apa saja yang disediakan oleh Najait?",
+    answer: `Kami menyediakan jasa reparasi dan vermak baju seperti pasang resleting, pasang kancing, potong bahan, dan lainnya yang sifatnya tidak merombak baju secara keseluruhan`,
   },
   {
-    question: "Question 4",
-    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget.`,
-  },
-  {
-    question: "Question 5",
-    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget.`,
-  },
-  {
-    question: "Question 6",
-    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-  eget.`,
+    question: "Penjahitnya harus ditunggu sampai selesai?",
+    answer: `Tergantung tingkat kesulitan, tapi jika dari kawan jahit ingin ditinggal, dapat dikomunikasikan dengan penjahit, supaya mereka bisa tau akan diambil dimana atau bisa dititip dengan orang di rumah!`,
   },
 ];
 

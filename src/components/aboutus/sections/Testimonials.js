@@ -12,19 +12,17 @@ import SectionTitle from "../SectionTitle";
 
 const testimonials = [
   {
-    author: "Ujang",
-    title: "Pelajar",
-    comment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dapibus suscipit diam eget dictum.`,
+    author: "Hanief",
+    title: "Permata Bintaro",
+    comment: `Kalo review dari hasil jaitan itu cuma di bagian harganya aja karena menurut gw kemahalan buat 25k untuk jait resleting celana jeans tapi kurang tau kalo di tempat jaitan yang lain harganya brp, oh iya masukkan dari gw kalo bisa menjaitnya lebih mendetail lagi karna biar hasilnya tuh tahan lama. 
+    
+    Mungkin kedepannya coba bisa tambahin scan barcode untuk gopay, ovo, dll. Biar lebih mudah dan praktis karna kalo pembayaran cash belum tentu ada kembalian dari penjaitnya. 
+    Selebihnya sih oke bapaknya juga dateng tepat waktu. Sukses terus buat Najait.co🤘🏼`,
   },
   {
-    author: "Ujang",
-    title: "Pelajar",
-    comment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dapibus suscipit diam eget dictum.`,
-  },
-  {
-    author: "Ujang",
-    title: "Pelajar",
-    comment: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dapibus suscipit diam eget dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dapibus suscipit diam eget dictum.`,
+    author: "Nadine",
+    title: "Maleo Bintaro",
+    comment: `Pelayanannya udah baikk, wa responsif tp mungkin bisa ditingkatin lagi kecepatan dalam responnya sm ngabarin jadwal tukang jaitnyaa, tp overall baguss tukang jaitnya jg baik bgt, responsif, dan hasil jaitannya rapih dan sesuai😍 super ngebantu bgt karena udh agak susah nyari tukang jait keliling!! thankyouu najait!`,
   },
 ];
 
