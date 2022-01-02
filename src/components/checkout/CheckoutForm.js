@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Grid,
-  MenuItem,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, MenuItem, TextField, Typography } from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { DateTimePicker } from "@mui/lab";
@@ -68,6 +59,23 @@ function CheckoutForm(props) {
           value={props.catatan}
           onChange={(e) => props.setCatatan(e.target.value)}
         />
+      </Box>
+      <Box>
+        <TextField
+          sx={{ mt: 2 }}
+          fullWidth
+          id="payment"
+          name="payment"
+          label="Metode Pembayaran"
+          variant="outlined"
+          value={props.payment}
+          onChange={(e) => props.setPayment(e.target.value)}
+          select
+        >
+          <MenuItem value="Cash">Cash</MenuItem>
+          <MenuItem value="OVO">OVO</MenuItem>
+          <MenuItem value="Gopay">Gopay</MenuItem>
+        </TextField>
       </Box>
       <Box
         sx={{

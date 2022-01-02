@@ -58,6 +58,18 @@ function ReviewOrder(props) {
           inputProps={{ readOnly: true }}
         />
       </Box>
+      <Box>
+        <TextField
+          sx={{ mt: 2 }}
+          fullWidth
+          id="payment"
+          name="payment"
+          label="Metode Pembayaran"
+          variant="standard"
+          value={props.payment}
+          inputProps={{ readOnly: true }}
+        />
+      </Box>
       <Box
         sx={{
           display: "flex",

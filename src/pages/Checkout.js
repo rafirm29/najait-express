@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -9,15 +9,15 @@ import {
   StepLabel,
   Stepper,
   Typography,
-} from '@mui/material';
-import CheckoutForm from '../components/checkout/CheckoutForm';
-import ReviewOrder from '../components/checkout/ReviewOrder';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import CONFIG from '../config';
-import { useAuth } from '../context/auth';
+} from "@mui/material";
+import CheckoutForm from "../components/checkout/CheckoutForm";
+import ReviewOrder from "../components/checkout/ReviewOrder";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import CONFIG from "../config";
+import { useAuth } from "../context/auth";
 
-const steps = ['Formulir Pemesanan', 'Review Pemesanan'];
+const steps = ["Formulir Pemesanan", "Review Pemesanan"];
 
 function getStepContent(step) {
   switch (step) {
@@ -26,7 +26,7 @@ function getStepContent(step) {
     case 1:
       return <ReviewOrder />;
     default:
-      throw new Error('Unknown step');
+      throw new Error("Unknown step");
   }
 }
 
@@ -35,14 +35,15 @@ function Checkout() {
   const history = useHistory();
   const [activeStep, setActiveStep] = useState(0);
 
-  const [jenis, setJenis] = useState('');
-  const [pakaian, setPakaian] = useState('');
-  const [catatan, setCatatan] = useState('');
+  const [jenis, setJenis] = useState("");
+  const [pakaian, setPakaian] = useState("");
+  const [catatan, setCatatan] = useState("");
+  const [payment, setPayment] = useState("");
   const [waktu_pesan, setWaktu_pesan] = useState(new Date());
 
   const handleNext = () => {
-    if (jenis == '' || pakaian == '' || catatan == '') {
-      alert('Tidak boleh ada field yang kosong!');
+    if (jenis == "" || pakaian == "" || catatan == "") {
+      alert("Tidak boleh ada field yang kosong!");
     } else {
       setActiveStep(activeStep + 1);
     }
@@ -54,15 +55,15 @@ function Checkout() {
 
   useEffect(async () => {
     if (!auth.isAuthenticated()) {
-      history.replace('/login');
+      history.replace("/login");
     }
   }, []);
 
   const handleCheckout = () => {
-    if (jenis == '' || pakaian == '' || catatan == '') {
-      alert('Tidak boleh ada field yang kosong!');
+    if (jenis == "" || pakaian == "" || catatan == "") {
+      alert("Tidak boleh ada field yang kosong!");
     } else {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       axios
         .post(
           CONFIG.API_URL + `/order/add`,
@@ -70,13 +71,14 @@ function Checkout() {
             jenis: jenis,
             pakaian: pakaian,
             catatan: catatan,
+            payment: payment,
             waktu_pesan: waktu_pesan,
           },
           { headers: { Authorization: `Bearer ${token}` } }
         )
         .then(function (response) {
           handleNext();
-          history.push('/home');
+          history.push("/home");
           return response;
         })
         .catch((err) => console.error(err));
@@ -93,9 +95,9 @@ function Checkout() {
           item
           xs={12}
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Card>
@@ -132,6 +134,8 @@ function Checkout() {
                       setPakaian={setPakaian}
                       catatan={catatan}
                       setCatatan={setCatatan}
+                      payment={payment}
+                      setPayment={setPayment}
                       waktu_pesan={waktu_pesan}
                       setWaktu_pesan={setWaktu_pesan}
                     />
@@ -143,13 +147,15 @@ function Checkout() {
                       setPakaian={setPakaian}
                       catatan={catatan}
                       setCatatan={setCatatan}
+                      payment={payment}
+                      setPayment={setPayment}
                       waktu_pesan={waktu_pesan}
                       setWaktu_pesan={setWaktu_pesan}
                     />
                   ) : (
                     <></>
                   )}
-                  <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                     {activeStep !== 0 && (
                       <Button onClick={handleBack}>Kembali</Button>
                     )}

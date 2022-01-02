@@ -39,9 +39,14 @@ const SignUp = () => {
   // Checking for validation errors in the form
   // Returns true if there's error
   const checkError = () => {
+    for (const field in formData) {
+      if (Object.hasOwnProperty.call(formData, field)) {
+        if (!formData[field]) return true;
+      }
+    }
     for (const field in error) {
       if (Object.hasOwnProperty.call(error, field)) {
-        if (!error[field]) {
+        if (error[field]) {
           return true;
         }
       }
@@ -133,7 +138,6 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    checkError();
     if (auth.isAuthenticated()) {
       history.replace("/home");
     }
