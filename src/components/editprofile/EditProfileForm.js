@@ -32,6 +32,7 @@ function EditProfileForm() {
     lastName: null,
     address: null,
     kodePos: null,
+    city: null,
     phone: null,
   });
   const [error, setError] = useState({
@@ -40,6 +41,7 @@ function EditProfileForm() {
     password: null,
     address: null,
     kodePos: null,
+    city: null,
     phone: null,
   });
 
@@ -109,6 +111,15 @@ function EditProfileForm() {
         setProfileData({ ...profileData, kodePos: target.value });
 
         break;
+      case 'city':
+        if (target.value.length === 0) {
+          setError({ ...error, city: 'City cannot be empty' });
+        } else {
+          setError({ ...error, city: null });
+        }
+        setProfileData({ ...profileData, city: target.value });
+
+        break;
       case 'phone':
         if (target.value.length === 0) {
           setError({ ...error, phone: 'Phone number cannot be empty' });
@@ -138,6 +149,8 @@ function EditProfileForm() {
     payload.append('first_name', profileData.firstName);
     payload.append('last_name', profileData.lastName);
     payload.append('address', profileData.address);
+    payload.append('city', profileData.city);
+    payload.append('zip_code', profileData.kodePos);
     payload.append('phone', profileData.phone);
 
     setSubmitLoading(true);
@@ -174,11 +187,14 @@ function EditProfileForm() {
   useEffect(async () => {
     try {
       const { user } = await fetchCurrentUser();
-      const { first_name, last_name, address, phone, picture } = user;
+      const { first_name, last_name, address, phone, city, zip_code, picture } =
+        user;
       setProfileData({
         ...profileData,
         firstName: first_name,
         lastName: last_name,
+        kodePos: zip_code,
+        city,
         address,
         phone,
       });
@@ -198,22 +214,60 @@ function EditProfileForm() {
         <Card>
           <Grid
             container
+            minHeight={500}
             component="form"
             encType="multipart/form-data"
             autoComplete="off"
             p={2}
             columnSpacing={2}
-            alignItems="center"
             justifyContent="center"
             onSubmit={handleSubmit}
           >
             {loading ? (
-              <Skeleton variant="rectangular" w="100%" h={216} />
+              <>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Skeleton variant="circular" height={200} width={200} />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Skeleton variant="text" height={150} width="100%" />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Skeleton variant="text" height={400} width="100%" />
+                </Grid>
+              </>
             ) : (
               <>
                 <Grid
                   item
-                  xs={6}
+                  xs={12}
+                  sm={6}
+                  my={2}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -245,7 +299,14 @@ function EditProfileForm() {
                   )}
                 </Grid>
 
-                <Grid item xs={6} justifySelf="center">
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  my={2}
+                  justifySelf="center"
+                  alignSelf="center"
+                >
                   <Box>
                     <input
                       accept="image/*"
@@ -276,7 +337,7 @@ function EditProfileForm() {
                   </Box>
                 </Grid>
 
-                <Grid item xs={6} mt={4} justifySelf="center">
+                <Grid item xs={12} sm={6} my={1} justifySelf="center">
                   <TextField
                     id="standard-basic"
                     label="Nama Depan"
@@ -289,7 +350,7 @@ function EditProfileForm() {
                     sx={{ width: '100%' }}
                   />
                 </Grid>
-                <Grid item xs={6} mt={4} justifySelf="center">
+                <Grid item xs={12} sm={6} my={1} justifySelf="center">
                   <TextField
                     id="standard-basic"
                     label="Nama Belakang"
@@ -302,10 +363,10 @@ function EditProfileForm() {
                     sx={{ width: '100%' }}
                   />
                 </Grid>
-                <Grid item xs={12} mt={2} justifySelf="center">
+                <Grid item xs={12} my={1} justifySelf="center">
                   <TextField
                     multiline
-                    rows={4}
+                    rows={2}
                     id="standard-basic"
                     label="Alamat"
                     name="address"
@@ -317,7 +378,7 @@ function EditProfileForm() {
                     sx={{ width: '100%' }}
                   />
                 </Grid>
-                <Grid item xs={6} my={2} justifySelf="center">
+                <Grid item xs={12} sm={6} my={1} justifySelf="center">
                   <TextField
                     id="standard-basic"
                     label="Kode Pos"
@@ -330,7 +391,20 @@ function EditProfileForm() {
                     sx={{ width: '100%' }}
                   />
                 </Grid>
-                <Grid item xs={6} my={2} justifySelf="center">
+                <Grid item xs={12} sm={6} my={1} justifySelf="center">
+                  <TextField
+                    id="standard-basic"
+                    label="Kota"
+                    name="city"
+                    variant="outlined"
+                    value={profileData.city}
+                    onChange={handleChange}
+                    error={error.city}
+                    helperText={error.city || ' '}
+                    sx={{ width: '100%' }}
+                  />
+                </Grid>
+                <Grid item xs={12} my={1} justifySelf="center">
                   <TextField
                     id="standard-basic"
                     label="Nomor Ponsel"
@@ -346,7 +420,7 @@ function EditProfileForm() {
                 <Grid
                   item
                   xs={12}
-                  my={2}
+                  my={1}
                   justifySelf="center"
                   sx={{
                     width: '100%',
