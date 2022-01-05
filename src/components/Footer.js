@@ -1,14 +1,16 @@
-import { Container, Grid, Link, Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import React from "react";
-import Logo from "./Logo";
-import EmailIcon from "@mui/icons-material/Email";
-import CallIcon from "@mui/icons-material/Call";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { Container, Grid, Link, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import React from 'react';
+import Logo from './Logo';
+import EmailIcon from '@mui/icons-material/Email';
+import CallIcon from '@mui/icons-material/Call';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/FacebookOutlined';
 
 const Footer = () => {
   return (
-    <Box component="footer" sx={{ mt: "auto" }}>
+    <Box component="footer" sx={{ mt: 'auto' }}>
       <Box bgcolor="#266679" py={5}>
         <Container>
           <Grid container columnSpacing={5} color="white">
@@ -74,19 +76,51 @@ const Footer = () => {
               <Box mt={1} display="flex" alignItems="center">
                 <EmailIcon />
                 <Typography variant="subtitle2" ml={1}>
-                  najait@gmail.com
+                  najaitco@gmail.com
                 </Typography>
               </Box>
               <Box mt={2} display="flex" alignItems="center">
                 <CallIcon />
                 <Typography variant="subtitle2" ml={1}>
-                  (+62)81234567890
+                  (+62)8815496814
                 </Typography>
               </Box>
               <Box mt={2} display="flex" alignItems="center">
                 <LocationOnIcon />
                 <Typography variant="subtitle2" ml={1}>
-                  Jl. Apel No. 1 Jakarta
+                  -
+                </Typography>
+              </Box>
+              <Box mt={2} display="flex" alignItems="center">
+                <InstagramIcon />
+                <Typography
+                  variant="subtitle2"
+                  ml={1}
+                  onClick={() =>
+                    window.open(
+                      'https://www.facebook.com/profile.php?id=100071449763169'
+                    )
+                  }
+                  sx={{
+                    cursor: 'pointer',
+                  }}
+                >
+                  @najait.co
+                </Typography>
+              </Box>
+              <Box mt={2} display="flex" alignItems="center">
+                <FacebookIcon />
+                <Typography
+                  variant="subtitle2"
+                  ml={1}
+                  onClick={() =>
+                    window.open('https://www.instagram.com/najait.co/')
+                  }
+                  sx={{
+                    cursor: 'pointer',
+                  }}
+                >
+                  Najait Corp
                 </Typography>
               </Box>
             </Grid>
