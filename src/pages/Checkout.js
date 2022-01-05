@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -9,15 +9,22 @@ import {
   StepLabel,
   Stepper,
   Typography,
-} from "@mui/material";
-import CheckoutForm from "../components/checkout/CheckoutForm";
-import ReviewOrder from "../components/checkout/ReviewOrder";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import CONFIG from "../config";
-import { useAuth } from "../context/auth";
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Backdrop,
+  CircularProgress,
+} from '@mui/material';
+import CheckoutForm from '../components/checkout/CheckoutForm';
+import ReviewOrder from '../components/checkout/ReviewOrder';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import CONFIG from '../config';
+import { useAuth } from '../context/auth';
 
-const steps = ["Formulir Pemesanan", "Review Pemesanan"];
+const steps = ['Formulir Pemesanan', 'Review Pemesanan'];
 
 function getStepContent(step) {
   switch (step) {
@@ -26,7 +33,7 @@ function getStepContent(step) {
     case 1:
       return <ReviewOrder />;
     default:
-      throw new Error("Unknown step");
+      throw new Error('Unknown step');
   }
 }
 
@@ -34,16 +41,18 @@ function Checkout() {
   const auth = useAuth();
   const history = useHistory();
   const [activeStep, setActiveStep] = useState(0);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
 
-  const [jenis, setJenis] = useState("");
-  const [pakaian, setPakaian] = useState("");
-  const [catatan, setCatatan] = useState("");
-  const [payment, setPayment] = useState("");
+  const [jenis, setJenis] = useState('');
+  const [pakaian, setPakaian] = useState('');
+  const [catatan, setCatatan] = useState('');
+  const [payment, setPayment] = useState('');
   const [waktu_pesan, setWaktu_pesan] = useState(new Date());
 
   const handleNext = () => {
-    if (jenis == "" || pakaian == "" || catatan == "") {
-      alert("Tidak boleh ada field yang kosong!");
+    if (jenis == '' || pakaian == '' || catatan == '') {
+      alert('Tidak boleh ada field yang kosong!');
     } else {
       setActiveStep(activeStep + 1);
     }
@@ -55,15 +64,16 @@ function Checkout() {
 
   useEffect(async () => {
     if (!auth.isAuthenticated()) {
-      history.replace("/login");
+      history.replace('/login');
     }
   }, []);
 
   const handleCheckout = () => {
-    if (jenis == "" || pakaian == "" || catatan == "") {
-      alert("Tidak boleh ada field yang kosong!");
+    if (jenis == '' || pakaian == '' || catatan == '') {
+      alert('Tidak boleh ada field yang kosong!');
     } else {
-      const token = localStorage.getItem("token");
+      setSubmitLoading(true);
+      const token = localStorage.getItem('token');
       axios
         .post(
           CONFIG.API_URL + `/order/add`,
@@ -78,7 +88,8 @@ function Checkout() {
         )
         .then(function (response) {
           handleNext();
-          history.push("/home");
+          setSubmitLoading(false);
+          setDialogOpen(true);
           return response;
         })
         .catch((err) => console.error(err));
@@ -95,9 +106,9 @@ function Checkout() {
           item
           xs={12}
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <Card>
@@ -155,7 +166,7 @@ function Checkout() {
                   ) : (
                     <></>
                   )}
-                  <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     {activeStep !== 0 && (
                       <Button onClick={handleBack}>Kembali</Button>
                     )}
@@ -176,6 +187,37 @@ function Checkout() {
           </Card>
         </Grid>
       </Grid>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={submitLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Dialog
+        open={dialogOpen}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Order anda berhasil ditambahkan
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Admin akan mengontak anda melalui WhatsApp untuk memproses pesanan
+            anda.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              history.push('/home');
+            }}
+            autoFocus
+          >
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Box, MenuItem, TextField, Typography } from "@mui/material";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import { DateTimePicker } from "@mui/lab";
+import React from 'react';
+import { Box, MenuItem, TextField, Typography } from '@mui/material';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { MobileDateTimePicker } from '@mui/lab';
 
 function CheckoutForm(props) {
   const handleWaktu_pesan = (newValue) => {
@@ -16,9 +16,9 @@ function CheckoutForm(props) {
       </Box>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
           my: 2,
         }}
       >
@@ -36,6 +36,7 @@ function CheckoutForm(props) {
           <MenuItem value="Potong Bahan">Potong Bahan</MenuItem>
           <MenuItem value="Mengecilkan Pakaian">Mengecilkan Pakaian</MenuItem>
           <MenuItem value="Vermak">Vermak</MenuItem>
+          <MenuItem value="Other">Other (tulis di catatan)</MenuItem>
         </TextField>
         <TextField
           sx={{ flex: 0.49 }}
@@ -43,6 +44,7 @@ function CheckoutForm(props) {
           name="pakaian"
           label="Pakaian"
           variant="outlined"
+          placeholder="Baju, Celana, Rok, dll."
           value={props.pakaian}
           onChange={(e) => props.setPakaian(e.target.value)}
         />
@@ -55,6 +57,7 @@ function CheckoutForm(props) {
           id="catatan"
           name="catatan"
           label="Catatan"
+          placeholder="Contoh: Kaos bahan katun ukuran L dan ingin diperkecil dibagian lengannya karena terlalu besar dan panjangnya mau dipotong sekitar 2cm."
           variant="outlined"
           value={props.catatan}
           onChange={(e) => props.setCatatan(e.target.value)}
@@ -79,20 +82,26 @@ function CheckoutForm(props) {
       </Box>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
           my: 2,
         }}
       >
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateTimePicker
+          <MobileDateTimePicker
             id="waktu_pesan"
             name="waktu_pesan"
             label="Waktu Pesan"
             value={props.waktu_pesan}
             onChange={handleWaktu_pesan}
-            renderInput={(params) => <TextField {...params} fullWidth />}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                helperText="Jam operasional: 09.00 - 17.30"
+              />
+            )}
             minDateTime={new Date()}
           />
         </LocalizationProvider>
