@@ -57,6 +57,7 @@ const Main = () => {
       <Header />
       <Switch>
         <Route path="/home" component={Home} />
+        <Route exact path="/aboutus" component={AboutUs} />
         <Route exact path="/profilpenjahit" component={ProfilPenjahit} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/ordersaya" component={OrderSaya} />
@@ -74,7 +75,6 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={THEME}>
         <Switch>
-          <Route path="/aboutus" component={AboutUs} />
           <Route exact path="/login" component={LogIn} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/checkout" component={Checkout} />
